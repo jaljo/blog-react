@@ -21,7 +21,7 @@ class App extends Component {
   // fetch blog posts from server
   // TODO: replace test url by prod url
   componentDidMount() {
-    fetch('http://localhost/blog-react/tmp/api.php')
+    fetch('http://localhost:8000/blog/posts')
       .then(response => response.json())
       .then(fetchedBlogPosts => this.setState({ blogPosts: fetchedBlogPosts }))
       .catch(error => console.log(error));
