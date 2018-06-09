@@ -12,14 +12,22 @@ import CategoriesWidget from './components/CategoriesWidget.js';
 import SearchWidget from './components/SearchWidget.js';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {blogPosts: []};
+  }
+
+  // fetch blog posts from server
+  // TODO: replace test url by prod url
+  componentDidMount() {
+    fetch('http://localhost/blog-react/tmp/api.php')
+      .then(response => response.json())
+      .then(fetchedBlogPosts => this.setState({ blogPosts: fetchedBlogPosts }))
+      .catch(error => console.log(error));
+  }
+
   render() {
-
-    const BLOG_POSTS = [
-      { title: "title 1", content: " content 1", date: "January 1, 2017"},
-      { title: "title 2", content: "content 2", date: "January 1, 2017"},
-      { title: "title 3", content: "content 3", date: "January 1, 2017"}
-    ];
-
     return (
       <div className="App">
 
@@ -31,7 +39,7 @@ class App extends Component {
               {/* main container */}
               <div class="col-md-8">
                 <Header/>
-                { BLOG_POSTS.map(post => <BlogPost title={ post.title } content={ post.content } date={ post.date }/>)}
+                { this.state.blogPosts.map(post => <BlogPost key={ post.id } title={ post.title } content={ post.content } date={ post.date }/>)}
                 <Pagination/>
               </div>
               {/* end main container */}
