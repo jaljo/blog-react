@@ -13,6 +13,13 @@ import SearchWidget from './components/SearchWidget.js';
 
 class App extends Component {
   render() {
+
+    const BLOG_POSTS = [
+      { title: "title 1", content: " content 1", date: "January 1, 2017"},
+      { title: "title 2", content: "content 2", date: "January 1, 2017"},
+      { title: "title 3", content: "content 3", date: "January 1, 2017"}
+    ];
+
     return (
       <div className="App">
 
@@ -24,9 +31,7 @@ class App extends Component {
               {/* main container */}
               <div class="col-md-8">
                 <Header/>
-                <BlogPost title="titre 1"/>
-                <BlogPost title="titre 2"/>
-                <BlogPost title="titre 3"/>
+                { BLOG_POSTS.map(post => <BlogPost title={ post.title } content={ post.content } date={ post.date }/>)}
                 <Pagination/>
               </div>
               {/* end main container */}
@@ -43,7 +48,7 @@ class App extends Component {
           </div>
 
           <Footer/>
-          
+
       </div>
     );
   }
