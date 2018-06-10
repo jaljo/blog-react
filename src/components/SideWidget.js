@@ -4,9 +4,13 @@ class SideWidget extends Component {
   render() {
     return (
       <div class="card my-4">
-        <h5 class="card-header">Side Widget</h5>
+        <h5 class="card-header">About me</h5>
         <div class="card-body">
-          You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+         <p>
+           I'm a french developper interested in coding cool stuff, mathematics and eating tons of cheese.<br/>
+           <br/>
+           This minimal blog is an attempt to share my daily understandings, and a pretty good excuse to improve my english :)
+         </p>
         </div>
       </div>
     );

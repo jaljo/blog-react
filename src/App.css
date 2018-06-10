@@ -8,10 +8,40 @@ body {
   font-size: 0.8rem;
 }
 
+h2 {
+  font-size: 1.5rem;
+}
+
 h5 {
   font-size: 1rem;
 }
 
+/* btn custom style */
+a.btn {
+  font-size: 0.8rem;
+  border: none;
+  background-color: #72840E;
+}
+a.btn:hover {
+  background-color: #7C8E14;
+}
+
+/* cards custom style */
+h5.card-header {
+  background-color: white;
+}
+
+div.card {
+  border: none;
+}
+
+div.card-footer {
+  border-top: none;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  background-color: white;
+}
+
+/* header image */
 nav.bg-dark {
   background-image: url('images/header1.jpeg');
   background-size: cover;

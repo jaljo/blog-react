@@ -21,6 +21,8 @@ class App extends Component {
   // fetch blog posts from server
   // TODO: replace test url by prod url
   componentDidMount() {
+    document.title = "Antoine Mornet";
+
     fetch('http://localhost:8000/blog/posts')
       .then(response => response.json())
       .then(fetchedBlogPosts => this.setState({ blogPosts: fetchedBlogPosts }))
@@ -37,17 +39,17 @@ class App extends Component {
             <div class="row">
 
               {/* main container */}
-              <div class="col-md-8">
-                <Header/>
+              <div class="col-md-8 my-4">
+                {/*<Header/>*/}
                 { this.state.blogPosts.map(post => <BlogPost key={ post.id } title={ post.title } content={ post.content } date={ post.date_creation }/>)}
-                <Pagination/>
+                {/*<Pagination/>*/}
               </div>
               {/* end main container */}
 
               {/* side widgets container */}
               <div class="col-md-4">
-                <SearchWidget/>
-                <CategoriesWidget/>
+                {/*<SearchWidget/>*/}
+                {/*<CategoriesWidget/>*/}
                 <SideWidget/>
               </div>
               {/* end side widgets container */}
