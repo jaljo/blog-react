@@ -3,13 +3,25 @@
  * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-home/blob/master/LICENSE)
  */
-
 body {
   padding-top: 54px;
+  font-size: 0.8rem;
+}
+
+h5 {
+  font-size: 1rem;
+}
+
+nav.bg-dark {
+  background-image: url('images/header1.jpeg');
+  background-size: cover;
 }
 
 @media (min-width: 992px) {
   body {
-    padding-top: 56px;
+    padding-top: 150px;
+  }
+  nav.bg-dark {
+    height: 150px;
   }
 }

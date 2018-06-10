@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 class BlogPost extends Component {
   render() {
+
+    var moment = require('moment');
+
     return (
       <div class="card mb-4">
         <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap"/>
@@ -12,7 +15,7 @@ class BlogPost extends Component {
           <a href="#" class="btn btn-primary">Read More &rarr;</a>
         </div>
         <div class="card-footer text-muted">
-          Posted on { this.props.date }
+          Posted on { moment(this.props.date).format('dddd D MMMM YYYY') }
         </div>
       </div>
     );
