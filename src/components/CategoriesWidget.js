@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 class CategoriesWidget extends Component {
   render() {
     return (
-      <div class="card my-4">
-        <h5 class="card-header">Categories</h5>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-lg-6">
-              <ul class="list-unstyled mb-0">
+      <div className="card my-4">
+        <h5 className="card-header">Categories</h5>
+        <div className="card-body">
+          <div className="row">
+            <div className="col-lg-6">
+              <ul className="list-unstyled mb-0">
                 <li>
                   <a href="#">Web Design</a>
                 </li>
@@ -20,8 +20,8 @@ class CategoriesWidget extends Component {
                 </li>
               </ul>
             </div>
-            <div class="col-lg-6">
-              <ul class="list-unstyled mb-0">
+            <div className="col-lg-6">
+              <ul className="list-unstyled mb-0">
                 <li>
                   <a href="#">JavaScript</a>
                 </li>

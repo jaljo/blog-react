@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 class SideWidget extends Component {
   render() {
     return (
-      <div class="card my-4">
-        <h5 class="card-header">About me</h5>
-        <div class="card-body">
+      <div className="card my-4">
+        <h5 className="card-header">About me</h5>
+        <div className="card-body">
          <p>
            I'm a french developper interested in coding cool stuff, mathematics and eating tons of cheese.<br/>
            <br/>

@@ -35,11 +35,11 @@ class App extends Component {
 
           <Navbar/>
 
-          <div class="container">
-            <div class="row">
+          <div className="container">
+            <div className="row">
 
               {/* main container */}
-              <div class="col-md-8 my-4">
+              <div className="col-md-8 my-4">
                 {/*<Header/>*/}
                 { this.state.blogPosts.map(post => <BlogPost key={ post.id } title={ post.title } content={ post.content } date={ post.date_creation }/>)}
                 {/*<Pagination/>*/}
@@ -47,7 +47,7 @@ class App extends Component {
               {/* end main container */}
 
               {/* side widgets container */}
-              <div class="col-md-4">
+              <div className="col-md-4">
                 {/*<SearchWidget/>*/}
                 {/*<CategoriesWidget/>*/}
                 <SideWidget/>
