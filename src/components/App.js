@@ -8,7 +8,7 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 export default ({store = defaultStore}) =>
-  <Provider store={store}>
+  <Provider store={store()}>
     <div className="App">
       <Navbar/>
       <BlogFeed/>

@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import BlogFeed from './BlogFeed'
-import { loadBlogPosts } from '../../modules/blogpost'
+import { loadBlogPosts } from '../../modules/blog'
 import { compose } from 'ramda'
 
-const mapStateToProps = (state, ownProps) => ({
-
+const mapStateToProps = state => ({
+  blog: state.blog
 })
 
 const mapDispatchToProps = dispatch => ({

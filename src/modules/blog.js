@@ -2,7 +2,7 @@ import { cond, T, always } from 'ramda'
 
 // initial state
 export const INITIAL_STATE = {
-  blogPosts: [],
+  posts: [],
   isLoading: false,
 }
 
@@ -17,13 +17,13 @@ export const loadBlogPosts = () => {
 }
 
 // blogPostsLoaded
-export const blogPostsLoaded = blogPosts => ({
+export const blogPostsLoaded = posts => ({
   type: BLOG_POSTS_LOADED,
-  blogPosts
+  posts
 })
 
 // reducer
-export const reducer = (state = INITIAL_STATE, action = {}) => cond([
+export default (state = INITIAL_STATE, action = {}) => cond([
   [() => action.type === LOAD_BLOG_POSTS, () => ({
     ...state, ...{
       isLoading: true,
@@ -32,7 +32,7 @@ export const reducer = (state = INITIAL_STATE, action = {}) => cond([
   [() => action.type === BLOG_POSTS_LOADED, () => ({
     ...state, ...{
       isLoading: false,
-      blogPosts: action.blogPosts,
+      posts: action.posts,
     }
   })],
   [T, always(INITIAL_STATE)],

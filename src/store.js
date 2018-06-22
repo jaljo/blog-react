@@ -1,10 +1,20 @@
-import { createStore } from 'redux'
-import { reducer as blogPostsReducer } from './modules/blogpost'
+import { createStore, applyMiddleware } from 'redux'
+import { rootReducer, rootEpic } from './modules'
+import { createEpicMiddleware } from 'redux-observable';
 
-const defaultStore = createStore(blogPostsReducer)
+const epicMiddleware = createEpicMiddleware();
 
-defaultStore.subscribe(() =>
-  console.log(defaultStore.getState())
-)
+export default function configureStore() {
+  const store = createStore(
+    rootReducer,
+    applyMiddleware(epicMiddleware)
+  );
 
-export default defaultStore;
+  // store.subscribe(() =>
+  //   console.log(store.getState())
+  // )
+
+  epicMiddleware.run(rootEpic);
+
+  return store;
+}
