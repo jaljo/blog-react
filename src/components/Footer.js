@@ -1,15 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Footer extends Component {
-  render() {
-    return (
-      <footer className="py-5 bg-dark">
-        <div className="container">
-          <p className="m-0 text-center text-white">Copyright &copy; Antoine Mornet 2018</p>
-        </div>
-      </footer>
-    );
-  }
-}
-
-export default Footer;
+export default () =>
+  <footer className="py-5 bg-dark">
+    <div className="container">
+      <p className="m-0 text-center text-white">Copyright &copy; Joris Langlois 2018</p>
+    </div>
+  </footer>
