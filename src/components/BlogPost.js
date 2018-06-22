@@ -1,29 +1,17 @@
 import React, { Component } from 'react';
+import moment from 'moment'
 
-class BlogPost extends Component {
-
-  disableAutoescape(rawHtml) {
-    return { __html: rawHtml};
-  }
-
-  render() {
-    var moment = require('moment');
-
-    return (
-      <div className="card mb-4">
-        {/*<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap"/>*/}
-        <div className="card-body">
-          <h2 className="card-title">{ this.props.title }</h2>
-          <div dangerouslySetInnerHTML={ this.disableAutoescape(this.props.content) }>
-          </div>
-          {/*<br/><br/><a href="#" class="btn btn-primary">Read More &rarr;</a>*/}
-        </div>
-        <div className="card-footer text-muted">
-          Posted on { moment(this.props.date).format('dddd D MMMM YYYY') }
-        </div>
+export default ({post}) =>
+  <div className="card mb-4">
+  { console.error(post) }
+    <div className="card-body">
+      <h2 className="card-title">{ post.title }</h2>
+      <div dangerouslySetInnerHTML={ disableAutoescape(post.content) }>
       </div>
-    );
-  };
-}
+    </div>
+    <div className="card-footer text-muted">
+      Posted on { moment(post.date_creation).format('dddd D MMMM YYYY') }
+    </div>
+  </div>
 
-export default BlogPost;
+const disableAutoescape = rawHtml => ({ __html: rawHtml})

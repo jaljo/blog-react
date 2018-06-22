@@ -41,7 +41,7 @@ class App extends Component {
               {/* main container */}
               <div className="col-md-8 my-4">
                 {/*<Header/>*/}
-                { this.state.blogPosts.map(post => <BlogPost key={ post.id } title={ post.title } content={ post.content } date={ post.date_creation }/>)}
+                { this.state.blogPosts.map(post => <BlogPost key={ post.id } post={ post }/>)}
                 {/*<Pagination/>*/}
               </div>
               {/* end main container */}
