@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment'
 
+// todo: parse html chain and create react elements
 export default ({post}) =>
   <div className="card mb-4">
     <div className="card-body">

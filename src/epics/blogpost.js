@@ -4,6 +4,7 @@ import { ajax } from 'rxjs/ajax';
 
 import { LOAD_BLOG_POSTS, blogPostsLoaded } from '../modules/blog'
 
+// todo: log observable errors
 const blogPostEpic = action$ => action$.pipe(
   ofType(LOAD_BLOG_POSTS),
   mergeMap(action =>
