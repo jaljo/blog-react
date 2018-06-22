@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import { reducer as blogPostsReducer } from './modules/BlogPost/BlogPost'
+import { reducer as blogPostsReducer } from './modules/blogpost'
 
 const defaultStore = createStore(blogPostsReducer)
 
