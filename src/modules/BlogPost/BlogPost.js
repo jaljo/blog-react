@@ -1,4 +1,4 @@
-import { cond, T } from 'ramda'
+import { cond, T, always } from 'ramda'
 
 // initial state
 export const INITIAL_STATE = {
@@ -12,7 +12,9 @@ export const BLOG_POSTS_LOADED = 'blog-react/blogpost/BLOG_POSTS_LOADED'
 
 // action creators
 // loadBlogPosts :: () -> Object
-export const loadBlogPosts = () => always({ type: LOAD_BLOG_POSTS })
+export const loadBlogPosts = () => {
+  return always({ type: LOAD_BLOG_POSTS })()
+}
 
 // blogPostsLoaded
 export const blogPostsLoaded = blogPosts => ({
@@ -34,4 +36,4 @@ export const reducer = (state = INITIAL_STATE, action = {}) => cond([
     }
   })],
   [T, always(INITIAL_STATE)],
-])
+])()

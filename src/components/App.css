@@ -43,7 +43,7 @@ div.card-footer {
 
 /* header image */
 nav.bg-dark {
-  background-image: url('images/header1.jpeg');
+  background-image: url('../images/header1.jpeg');
   background-size: cover;
 }
 
