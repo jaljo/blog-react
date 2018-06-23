@@ -1,7 +1,8 @@
 import React from 'react';
+import './SideWidget.css'
 
 export default () =>
-  <div className="card my-4">
+  <div className="about card my-4">
     <h5 className="card-header">About me</h5>
     <div className="card-body">
      <p>

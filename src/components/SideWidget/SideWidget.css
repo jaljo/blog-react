@@ -1,0 +1,8 @@
+
+
+@media (min-width: 755px) {
+  .card.about {
+    position: fixed;
+    width: 210px;
+  }
+}

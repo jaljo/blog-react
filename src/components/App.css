@@ -10,10 +10,12 @@ body {
 
 h2 {
   font-size: 1.5rem;
+  color: #242a0c;
 }
 
 h5 {
   font-size: 1rem;
+  color: #242a0c;
 }
 
 /* btn custom style */
@@ -49,10 +51,10 @@ nav.bg-dark {
 
 @media (min-width: 992px) {
   body {
-    padding-top: 150px;
+    padding-top: 100px;
   }
   nav.bg-dark {
-    height: 150px;
+    height: 100px;
   }
 }
 

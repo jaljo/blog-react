@@ -1,6 +1,6 @@
 import React from 'react';
 import BlogPost from '../BlogPost';
-import SideWidget from '../SideWidget';
+import SideWidget from '../SideWidget/SideWidget';
 
 export default ({ blog }) =>
   <div className="container">
