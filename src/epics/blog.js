@@ -1,10 +1,9 @@
 import { map, mergeMap } from 'rxjs/operators'
-import { ofType } from 'redux-observable'
+import { ofType, logObservableError } from 'redux-observable'
 import { ajax } from 'rxjs/ajax';
 
 import { LOAD_BLOG_POSTS, blogPostsLoaded } from '../modules/blog'
 
-// todo: log observable errors
 const loadBlogPostsEpic = action$ => action$.pipe(
   ofType(LOAD_BLOG_POSTS),
   mergeMap(action =>

@@ -55,3 +55,11 @@ nav.bg-dark {
     height: 150px;
   }
 }
+
+/* loader */
+.loader {
+  width:32px;
+  height:32px;
+  background-image: url('../images/ajax-loader.gif');
+  margin: auto;
+}

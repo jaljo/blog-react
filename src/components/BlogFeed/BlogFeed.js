@@ -7,7 +7,7 @@ export default ({ blog }) =>
     <div className="row">
       <div className="col-md-8 my-4">
         { blog.isLoading
-          ? "loading"
+          ? <div className="loader"></div>
           : blog.posts.map(post => <BlogPost key={post.id} post={post}/>)
         }
       </div>
