@@ -8,7 +8,7 @@ import { LOAD_BLOG_POSTS, blogPostsLoaded } from '../modules/blog'
 const loadBlogPostsEpic = action$ => action$.pipe(
   ofType(LOAD_BLOG_POSTS),
   mergeMap(action =>
-    ajax.getJSON('http://localhost:8000/blog/posts').pipe(
+    ajax.getJSON(process.env.REACT_APP_API + '/blog/posts').pipe(
       map(blogPosts => blogPostsLoaded(blogPosts))
     )
   ),

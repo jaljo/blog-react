@@ -11,9 +11,11 @@ export default function configureStore() {
     applyMiddleware(epicMiddleware)
   );
 
-  // store.subscribe(() =>
-  //   console.log(store.getState())
-  // )
+  if('true' === process.env.REACT_APP_REDUX_DEBUG_MODE) {
+    store.subscribe(() =>
+      console.log(store.getState())
+    )
+  }
 
   epicMiddleware.run(rootEpic);
 
