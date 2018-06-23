@@ -1,5 +1,5 @@
 import { map, mergeMap } from 'rxjs/operators'
-import { ofType, logObservableError } from 'redux-observable'
+import { ofType } from 'redux-observable'
 import { ajax } from 'rxjs/ajax';
 
 import { LOAD_BLOG_POSTS, blogPostsLoaded } from '../modules/blog'

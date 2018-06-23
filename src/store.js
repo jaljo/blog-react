@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware } from 'redux'
 import { rootReducer, rootEpic } from './modules'
 import { createEpicMiddleware } from 'redux-observable';
-import { compose } from 'ramda'
 
 const epicMiddleware = createEpicMiddleware();
 
