@@ -11,9 +11,9 @@ export default function configureStore() {
     applyMiddleware(epicMiddleware)
   );
 
-  store.subscribe(() =>
-    console.log(store.getState())
-  )
+  // store.subscribe(() =>
+  //   console.log(store.getState())
+  // )
 
   epicMiddleware.run(rootEpic);
 
