@@ -14,10 +14,10 @@ import React from 'react'
 // App :: Props -> React.Component
 export default ({store = defaultStore}) =>
   <Provider store={store}>
-    <div className="App">
+    <div className="app">
       <DocumentTitle title="Joris Langlois"/>
       <Navbar/>
-      <div className="container">
+      <div className="main container">
         <div className="row">
           <div className="col-md-8 my-4">
             <Route exact path='/' component={BlogFeed}/>

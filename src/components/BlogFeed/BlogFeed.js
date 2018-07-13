@@ -18,7 +18,7 @@ const renderFeed = map(post =>
         { ReactHtmlParser(post.content) }
       </div>
     </div>
-    <Link to={`/article/${post.seo_title}`}>Read link</Link>
+    <Link className="btn btn-primary" to={`/article/${post.seo_title}`}>Read →</Link>
     <div className="card-footer text-muted">
       Posted on { moment(post.date_creation).format('dddd D MMMM YYYY') }
     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 // Footer :: () -> React.Component
 export default () =>

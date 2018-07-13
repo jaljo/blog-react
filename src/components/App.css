@@ -1,11 +1,11 @@
-/*!
- * Start Bootstrap - Blog Home (https://startbootstrap.com/template-overviews/blog-home)
- * Copyright 2013-2017 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-home/blob/master/LICENSE)
- */
+.main.container {
+  min-height: calc(100vh - 115px - 55px);
+}
+
 body {
   padding-top: 54px;
   font-size: 0.8rem;
+  font-family: 'Open Sans', sans-serif;
 }
 
 h2 {
@@ -20,9 +20,12 @@ h5 {
 
 /* btn custom style */
 a.btn {
+  margin-left: 1.25rem;
+  margin-bottom: 1rem;
   font-size: 0.8rem;
   border: none;
   background-color: #72840E;
+  width: 100px;
 }
 a.btn:hover {
   background-color: #7C8E14;
@@ -37,10 +40,21 @@ div.card {
   border: none;
 }
 
+h6.card-subtitle {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  color: #6c757d;
+}
+
 div.card-footer {
   border-top: none;
   border-bottom: 1px solid rgba(0,0,0,.125);
   background-color: white;
+}
+
+span.navbar-brand a {
+  color: white;
 }
 
 /* header image */
