@@ -1,10 +1,10 @@
 import { combineEpics } from 'redux-observable';
 import { combineReducers } from 'redux';
-import loadBlogPostEpic from '../epics/blog'
+import blogEpic from '../epics/blog'
 import blog from './blog'
 
 export const rootEpic = combineEpics(
-  loadBlogPostEpic,
+  blogEpic,
 )
 
 export const rootReducer = combineReducers({

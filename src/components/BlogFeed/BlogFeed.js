@@ -1,18 +1,26 @@
-import React from 'react';
-import BlogPost from '../BlogPost';
-import SideWidget from '../SideWidget/SideWidget';
+import React from 'react'
+import { map } from 'ramda'
+import moment from 'moment'
+import ReactHtmlParser from 'react-html-parser'
+import { Link } from 'react-router-dom'
 
-export default ({ blog }) =>
-  <div className="container">
-    <div className="row">
-      <div className="col-md-8 my-4">
-        { blog.isLoading
-          ? <div className="loader"></div>
-          : blog.posts.map(post => <BlogPost key={post.id} post={post}/>)
-        }
-      </div>
-      <div className="col-md-4">
-        <SideWidget/>
+// BlogFeed :: Props -> React.Component
+export default ({ posts, isLoading }) => isLoading
+  ? <div className="loader"></div>
+  : renderFeed(posts)
+
+// renderFeed :: [Post] -> React.Component
+const renderFeed = map(post =>
+  <div key={post.id} className="card mb-4">
+    <div className="card-body">
+      <h2 className="card-title">{ post.title }</h2>
+      <div className="content">
+        { ReactHtmlParser(post.content) }
       </div>
     </div>
+    <Link to={`/article/${post.seo_title}`}>Read link</Link>
+    <div className="card-footer text-muted">
+      Posted on { moment(post.date_creation).format('dddd D MMMM YYYY') }
+    </div>
   </div>
+)

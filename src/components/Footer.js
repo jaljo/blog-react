@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Footer :: () -> React.Component
 export default () =>
   <footer className="py-5 bg-dark">
     <div className="container">
