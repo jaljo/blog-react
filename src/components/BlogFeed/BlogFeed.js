@@ -3,6 +3,7 @@ import { map } from 'ramda'
 import moment from 'moment'
 import ReactHtmlParser from 'react-html-parser'
 import { Link } from 'react-router-dom'
+import { highlightCodeSnippets } from '../utils'
 
 // BlogFeed :: Props -> React.Component
 export default ({ posts, isLoading }) => isLoading
@@ -15,7 +16,7 @@ const renderFeed = map(post =>
     <div className="card-body">
       <h2 className="card-title">{ post.title }</h2>
       <div className="content">
-        { ReactHtmlParser(post.content) }
+        { highlightCodeSnippets(ReactHtmlParser(post.content)) }
       </div>
     </div>
     <Link className="btn btn-primary" to={`/article/${post.seo_title}`}>Read →</Link>
