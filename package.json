@@ -12,13 +12,15 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.4.0",
     "react-functional-lifecycle": "^3.0.0",
+    "react-highlight": "^0.12.0",
     "react-html-parser": "^2.0.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
     "redux-observable": "^1.0.0",
-    "rxjs": "^6.2.1"
+    "rxjs": "^6.2.1",
+    "shortid": "^2.2.12"
   },
   "scripts": {
     "start": "react-scripts start",
