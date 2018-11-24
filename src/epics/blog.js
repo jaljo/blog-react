@@ -8,14 +8,10 @@ import {
   oneLoaded,
 } from '../modules/blog'
 
-const api = (process.env.NODE_ENV === 'production')
-  ? process.env.REACT_APP_PROD_API
-  : process.env.REACT_APP_DEV_API
-
 const loadBlogFeedEpic = action$ => action$.pipe(
   ofType(LOAD_BLOG_POSTS),
   mergeMap(action =>
-    ajax.getJSON(`${api}/blog/posts`).pipe(
+    ajax.getJSON(`${process.env.REACT_APP_API}/blog/posts`).pipe(
       map(blogPostsLoaded),
     )
   ),
@@ -24,7 +20,7 @@ const loadBlogFeedEpic = action$ => action$.pipe(
 const loadOnePostEpic = (action$, store$) => action$.pipe(
   ofType(LOAD_ONE),
   mergeMap(action =>
-    ajax.getJSON(`${api}/blog/posts/${action.seoTitle}`).pipe(
+    ajax.getJSON(`${process.env.REACT_APP_API}/blog/posts/${action.seoTitle}`).pipe(
       map(oneLoaded)
     )
   ),

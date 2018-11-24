@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/app/Dockerfile
+    command: yarn start
+    restart: on-failure
+    volumes:
+      - './:/usr/src/app'
+    ports:
+      - '80:3000'
+    env_file:
+      - .env
