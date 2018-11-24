@@ -15,14 +15,15 @@ const mapDispatchToProps = dispatch => ({
   initPostLoading: compose(dispatch, loadOne),
 })
 
-// onMount :: Props -> Action
-const onMount = ({
+// didMount :: Props -> Action.LOAD_ONE
+const didMount = ({
   match,
-  initPostLoading
+  initPostLoading,
 }) => initPostLoading(match.params.seoTitle)
 
+// blogPostLifecycles :: React.Component -> React.Component
 const blogPostLifecycles = compose(
-  componentDidMount(onMount),
+  componentDidMount(didMount),
 )(BlogPost)
 
 // BlogPost :: Props -> React.Component

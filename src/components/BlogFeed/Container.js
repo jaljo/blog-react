@@ -15,15 +15,15 @@ const mapDispatchToProps = dispatch => ({
   initPostsLoading: compose(dispatch, loadBlogPosts),
 })
 
-// onMount :: Props -> Action
-const onMount = ({ initPostsLoading }) => initPostsLoading()
+// didMount :: Props -> Action.LOAD_BLOG_POSTS
+const didMount = ({ initPostsLoading }) => initPostsLoading()
 
-// blogFeedLifecycles :: View -> View
+// blogFeedLifecycles :: React.Component -> React.Component
 const blogFeedLifecycles = compose(
-  componentDidMount(onMount),
+  componentDidMount(didMount),
 )(BlogFeed)
 
-// BlogFeed :: view -> React.Component
+// BlogFeed :: Props -> React.Component
 export default connect(
   mapStateToProps,
   mapDispatchToProps,

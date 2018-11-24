@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 export default () =>
   <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div className="container">
-      <span className="navbar-brand"><Link to="/">Joris Langlois</Link></span>
+      <span className="navbar-brand">
+        <Link to="/">Joris Langlois</Link>
+      </span>
     </div>
   </nav>
