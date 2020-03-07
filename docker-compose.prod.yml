@@ -11,9 +11,9 @@ services:
         ENV_FILE: .env.prod.dist
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nginx.rule=Host(`jlanglois.fr`)"
-      - "traefik.http.routers.nginx.entrypoints=websecure"
-      - "traefik.http.routers.nginx.tls.certresolver=jlanglois"
+      - "traefik.http.routers.frontend_nginx.rule=Host(`jlanglois.fr`)"
+      - "traefik.http.routers.frontend_nginx.entrypoints=websecure"
+      - "traefik.http.routers.frontend_nginx.tls.certresolver=jlanglois"
       - "traefik.docker.network=traefik"
     networks:
       - traefik
@@ -30,10 +30,10 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.keskonmange.acme.httpchallenge=true"
-      - "--certificatesresolvers.keskonmange.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.keskonmange.acme.email=joris.langlois@gmail.com"
-      - "--certificatesresolvers.keskonmange.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.jlanglois.acme.httpchallenge=true"
+      - "--certificatesresolvers.jlanglois.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.jlanglois.acme.email=joris.langlois@gmail.com"
+      - "--certificatesresolvers.jlanglois.acme.storage=/letsencrypt/acme.json"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:[a-z-.]+}`)"

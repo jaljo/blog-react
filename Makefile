@@ -1,4 +1,4 @@
-REMOTE ?= deploy@jlanglois.fr
+REMOTE ?= jlanglois@jlanglois.fr
 REMOTE_PATH ?= ~/apps/blog_frontend
 STAGE ?= dev
 
@@ -24,7 +24,7 @@ cp-env:
 
 .PHONY:
 install-deps:
-	docker-compose -f ./docker-compose.$(STAGE).yml run --rm app yarn install
+	docker-compose -f ./docker-compose.$(STAGE).yml run --rm frontend_app yarn install
 
 .PHONY:
 start:
@@ -32,7 +32,7 @@ start:
 
 .PHONY:
 test:
-	docker-compose -f ./docker-compose.dev.yml run --rm app npm run test
+	docker-compose -f ./docker-compose.dev.yml run --rm frontend_app npm run test
 
 .PHONY: build
 build: .ensure-stage-exists .validate-tag

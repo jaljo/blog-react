@@ -5,12 +5,12 @@ services:
     build:
       context: ./
       dockerfile: .docker/Dockerfile
-      target: app
+      target: dev
     command: yarn start
     restart: on-failure
     volumes:
       - './:/app'
     ports:
-      - '3005:3000'
+      - '3000:3000'
     env_file:
       - .env
