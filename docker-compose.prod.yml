@@ -1,0 +1,56 @@
+version: '3.7'
+
+services:
+  frontend_nginx:
+    image: jaljo/blog_frontend:frontend_nginx-${IMAGE_TAG}
+    build:
+      context: ./
+      dockerfile: .docker/Dockerfile
+      target: nginx
+      args:
+        ENV_FILE: .env.prod.dist
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx.rule=Host(`jlanglois.fr`)"
+      - "traefik.http.routers.nginx.entrypoints=websecure"
+      - "traefik.http.routers.nginx.tls.certresolver=jlanglois"
+      - "traefik.docker.network=traefik"
+    networks:
+      - traefik
+
+  reverse_proxy:
+    image: jaljo/blog_frontend:reverse_proxy-${IMAGE_TAG}
+    build:
+      context: ./
+      dockerfile: .docker/Dockerfile
+      target: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.keskonmange.acme.httpchallenge=true"
+      - "--certificatesresolvers.keskonmange.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.keskonmange.acme.email=joris.langlois@gmail.com"
+      - "--certificatesresolvers.keskonmange.acme.storage=/letsencrypt/acme.json"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:[a-z-.]+}`)"
+      - "traefik.http.routers.http-catchall.entrypoints=web"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./letsencrypt:/letsencrypt"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external:
+      name: traefik
