@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from 'redux'
-import { rootReducer, rootEpic } from './modules'
+import rootReducer from './State'
+import rootEpic from './../Epics'
 import { createEpicMiddleware } from 'redux-observable'
 import { apply, pipe, tap } from 'ramda'
 

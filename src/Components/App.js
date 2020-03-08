@@ -1,7 +1,9 @@
+// wtf
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../../node_modules/highlight.js/styles/github.css'
+
 import './App.css'
-import defaultStore from '../store'
+import Store from './../Redux/Store'
 import BlogFeed from './BlogFeed'
 import BlogPost from './BlogPost'
 import DocumentTitle from 'react-document-title'
@@ -12,9 +14,9 @@ import { Provider } from 'react-redux'
 import { Route } from 'react-router-dom'
 import React from 'react'
 
-// App :: Props -> React.Component
-export default ({store = defaultStore}) =>
-  <Provider store={store}>
+// App :: () -> React.Component
+export default () =>
+  <Provider store={Store}>
     <div className="app">
       <DocumentTitle title="Joris Langlois"/>
       <Navbar/>

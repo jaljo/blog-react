@@ -59,7 +59,7 @@ span.navbar-brand a {
 
 /* header image */
 nav.bg-dark {
-  background-image: url('../images/header1.jpeg');
+  background-image: url('/images/header1.jpeg');
   background-size: cover;
 }
 
@@ -76,6 +76,6 @@ nav.bg-dark {
 .loader {
   width:32px;
   height:32px;
-  background-image: url('../images/ajax-loader.gif');
+  background-image: url('/images/ajax-loader.gif');
   margin: auto;
 }
