@@ -1,5 +1,5 @@
 import { cond, T, always } from 'ramda'
-import { ofType } from '../Utils'
+import { ofType } from './../../Utils'
 
 /**
  * @type Post = {

@@ -7,7 +7,7 @@ import {
   articlesLoaded,
   error,
   oneLoaded,
-} from '../modules/blog'
+} from '../Redux/State/blog'
 import { of, from } from 'rxjs'
 
 // loadArticlesEpic :: Epic -> Observable Action ARTICLES_LOADED

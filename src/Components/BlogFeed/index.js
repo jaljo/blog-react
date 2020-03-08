@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'ramda'
 import { componentDidMount } from 'react-functional-lifecycle'
-import { loadArticles } from '../../modules/blog'
+import { loadArticles } from '../../Redux/State/blog'
 import BlogFeed from './BlogFeed'
 
 // mapStateToProps :: State -> Props
