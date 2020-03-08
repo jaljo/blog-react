@@ -1,14 +1,16 @@
 version: '3.7'
+
 services:
-  app:
+  frontend_app:
     build:
-      context: .
-      dockerfile: .docker/app/Dockerfile
+      context: ./
+      dockerfile: .docker/Dockerfile
+      target: dev
     command: yarn start
     restart: on-failure
     volumes:
-      - './:/usr/src/app'
+      - './:/app'
     ports:
-      - '80:3000'
+      - '3000:3000'
     env_file:
       - .env
