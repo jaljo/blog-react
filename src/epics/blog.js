@@ -2,33 +2,37 @@ import { map, mergeMap, catchError } from 'rxjs/operators'
 import { ofType, combineEpics } from 'redux-observable'
 import { ajax } from 'rxjs/ajax'
 import {
-  LOAD_BLOG_POSTS,
+  LOAD_ARTICLES,
   LOAD_ONE,
-  blogPostsLoaded,
+  articlesLoaded,
+  error,
   oneLoaded,
 } from '../modules/blog'
+import { of, from } from 'rxjs'
 
-// loadBlogFeedEpic :: Observable Action Error -> Observable Action.BLOG_POSTS_LOADED
-const loadBlogFeedEpic = action$ => action$.pipe(
-  ofType(LOAD_BLOG_POSTS),
-  mergeMap(action =>
+// loadArticlesEpic :: Epic -> Observable Action ARTICLES_LOADED
+const loadArticlesEpic = action$ => action$.pipe(
+  ofType(LOAD_ARTICLES),
+  mergeMap(() => from(
     ajax.getJSON(`${process.env.REACT_APP_API}/blog/posts`)
-  ),
-  map(blogPostsLoaded),
-  catchError(error => console.error(error)),
+  ).pipe(
+    map(articlesLoaded),
+    catchError(msg => of(error(msg))),
+  )),
 )
 
-// loadOnePostEpic :: Observable Action Error -> Observable Action .ONE_LOADED
-const loadOnePostEpic = (action$, store$) => action$.pipe(
+// loadOneArticleEpic :: Epic -> Observable Action ONE_LOADED
+const loadOneArticleEpic = action$ => action$.pipe(
   ofType(LOAD_ONE),
-  mergeMap(action =>
+  mergeMap(action => from(
     ajax.getJSON(`${process.env.REACT_APP_API}/blog/posts/${action.seoTitle}`)
-  ),
-  map(oneLoaded),
-  catchError(error => console.error(error)),
+  ).pipe(
+    map(oneLoaded),
+    catchError(msg => of(error(msg))),
+  )),
 )
 
 export default combineEpics(
-  loadBlogFeedEpic,
-  loadOnePostEpic,
+  loadArticlesEpic,
+  loadOneArticleEpic,
 )

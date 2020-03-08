@@ -6,9 +6,18 @@ import { Link } from 'react-router-dom'
 import { highlightCodeSnippets } from '../../Utils'
 
 // BlogFeed :: Props -> React.Component
-export default ({ posts, isLoading }) => isLoading
+export default ({
+  error,
+  isLoading,
+  posts,
+}) => isLoading
   ? <div className="loader"></div>
-  : renderFeed(posts)
+  : <section>
+      {!error
+        ? renderFeed(posts)
+        : <p>An error occured. Please retry later.</p>
+      }
+    </section>
 
 // renderFeed :: [Post] -> React.Component
 const renderFeed = map(post =>
