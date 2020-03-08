@@ -2,7 +2,7 @@ import { cond, T, always } from 'ramda'
 import { ofType } from './../../Utils'
 
 /**
- * @type Post = {
+ * @type Article = {
  *    id :: Number
  *    title :: String
  *    seo_title :: String
@@ -12,8 +12,8 @@ import { ofType } from './../../Utils'
  * }
  */
 export const INITIAL_STATE = {
-  posts: [],
-  post: {},
+  articles: [],
+  article: {},
   isLoading: false,
   error: null,
 }
@@ -28,10 +28,10 @@ export const ERROR = '@blog-frontend/articles/ERROR'
 // loadArticles :: () -> Action
 export const loadArticles = always({ type: LOAD_ARTICLES })
 
-// articlesLoaded :: [Post] -> Action
-export const articlesLoaded = posts => ({
+// articlesLoaded :: [Article] -> Action
+export const articlesLoaded = articles => ({
   type: ARTICLES_LOADED,
-  posts
+  articles
 })
 
 // loadOne :: String -> Action
@@ -40,10 +40,10 @@ export const loadOne = seoTitle => ({
   seoTitle,
 })
 
-// oneLoaded :: Post -> Action
-export const oneLoaded = post => ({
+// oneLoaded :: Article -> Action
+export const oneLoaded = article => ({
   type: ONE_LOADED,
-  post,
+  article,
 })
 
 // error :: String -> Action
@@ -62,7 +62,7 @@ export default (state = INITIAL_STATE, action = {}) => cond([
   [ofType(ARTICLES_LOADED), () => ({
     ...state,
     isLoading: false,
-    posts: action.posts,
+    articles: action.articles,
   })],
 
   [ofType(LOAD_ONE), () => ({
@@ -73,7 +73,7 @@ export default (state = INITIAL_STATE, action = {}) => cond([
   [ofType(ONE_LOADED), () => ({
     ...state,
       isLoading: false,
-      post: action.post,
+      article: action.article,
   })],
 
   [ofType(ERROR), () => ({

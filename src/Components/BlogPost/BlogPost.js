@@ -7,20 +7,20 @@ import { highlightCodeSnippets } from '../../Utils'
 export default ({
   error,
   isLoading,
-  post,
+  article,
 }) => isLoading
   ? <div className="loader"></div>
   : <section>
       {!error
         ? <article className="card-body">
             <h2 className="card-title">
-              {post.title}
+              {article.title}
             </h2>
             <h6 className="card-subtitle">
-              {moment(post.date_creation).format('dddd D MMMM YYYY')}
+              {moment(article.date_creation).format('dddd D MMMM YYYY')}
             </h6>
             <div className="content">
-              {highlightCodeSnippets(ReactHtmlParser(post.content))}
+              {highlightCodeSnippets(ReactHtmlParser(article.content))}
             </div>
           </article>
         : <p>An error occured. Please retry later.</p>

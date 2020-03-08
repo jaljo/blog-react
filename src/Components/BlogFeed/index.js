@@ -1,14 +1,14 @@
 import { connect } from 'react-redux'
 import { compose } from 'ramda'
 import { componentDidMount } from 'react-functional-lifecycle'
-import { loadArticles } from '../../Redux/State/blog'
+import { loadArticles } from '../../Redux/State/articles'
 import BlogFeed from './BlogFeed'
 
 // mapStateToProps :: State -> Props
 const mapStateToProps = state => ({
-  posts: state.blog.posts,
-  isLoading : state.blog.isLoading,
-  error: state.blog.error,
+  articles: state.articles.articles,
+  isLoading : state.articles.isLoading,
+  error: state.articles.error,
 })
 
 // mapDispatchToProps :: (Action * -> State) -> Props
