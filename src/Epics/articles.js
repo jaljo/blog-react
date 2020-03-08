@@ -14,6 +14,7 @@ import { of, from } from 'rxjs'
 const loadArticlesEpic = action$ => action$.pipe(
   ofType(LOAD_ARTICLES),
   mergeMap(() => from(
+    // wtf
     ajax.getJSON(`${process.env.REACT_APP_API}/blog/posts`)
   ).pipe(
     map(articlesLoaded),
@@ -25,6 +26,7 @@ const loadArticlesEpic = action$ => action$.pipe(
 const loadOneArticleEpic = action$ => action$.pipe(
   ofType(LOAD_ONE),
   mergeMap(action => from(
+    //wtf
     ajax.getJSON(`${process.env.REACT_APP_API}/blog/posts/${action.seoTitle}`)
   ).pipe(
     map(oneLoaded),

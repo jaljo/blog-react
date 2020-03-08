@@ -54,6 +54,7 @@ export const error = message => ({
 
 // blog :: (State, Action *) -> State
 export default (state = INITIAL_STATE, action = {}) => cond([
+  // wtf wtf wtf
   [ofType(LOAD_ARTICLES), () => ({
     ...state,
       isLoading: true,
