@@ -3,6 +3,7 @@ import rootReducer from './State'
 import rootEpic from './../Epics'
 import { createEpicMiddleware } from 'redux-observable'
 import { apply, pipe, tap } from 'ramda'
+import createFetchApi from './../FetchApi'
 
 const logger = store => next => pipe(
   tap(action => console.log('Action :: ', action)),
@@ -10,7 +11,11 @@ const logger = store => next => pipe(
   tap(() => console.log('State ::', store.getState())),
 )
 
-const epicMiddleware = createEpicMiddleware()
+const epicMiddleware = createEpicMiddleware({
+  dependencies: {
+    fetchApi: createFetchApi(fetch, process.env.REACT_APP_API),
+  }
+})
 
 // createEpicMiddlewares :: Boolean -> [Middleware]
 const createMiddlewares = loggerEnabled => loggerEnabled
