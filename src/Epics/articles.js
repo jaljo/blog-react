@@ -10,24 +10,22 @@ import {
 } from '../Redux/State/articles'
 import { of, from } from 'rxjs'
 
-// loadArticlesEpic :: Epic -> Observable Action ARTICLES_LOADED
-const loadArticlesEpic = action$ => action$.pipe(
+// loadArticlesEpic :: Epic -> Observable Action ARTICLES_LOADED ERROR
+const loadArticlesEpic = (action$, state$, { fetchApi }) => action$.pipe(
   ofType(LOAD_ARTICLES),
   mergeMap(() => from(
-    // wtf
-    ajax.getJSON(`${process.env.REACT_APP_API}/blog/posts`)
+    fetchApi('/blog/posts')
   ).pipe(
     map(articlesLoaded),
     catchError(msg => of(error(msg))),
   )),
 )
 
-// loadOneArticleEpic :: Epic -> Observable Action ONE_LOADED
-const loadOneArticleEpic = action$ => action$.pipe(
+// loadOneArticleEpic :: Epic -> Observable Action ONE_LOADED ERROR
+const loadOneArticleEpic = (action$, state$, { fetchApi }) => action$.pipe(
   ofType(LOAD_ONE),
-  mergeMap(action => from(
-    //wtf
-    ajax.getJSON(`${process.env.REACT_APP_API}/blog/posts/${action.seoTitle}`)
+  mergeMap(({ seoTitle }) => from(
+    fetchApi(`/blog/posts/${seoTitle}`)
   ).pipe(
     map(oneLoaded),
     catchError(msg => of(error(msg))),
