@@ -3,29 +3,36 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.1.1",
-    "dotenv": "^6.0.0",
-    "moment": "^2.22.2",
-    "npm": "^6.1.0",
-    "ramda": "^0.25.0",
-    "react": "^16.4.0",
-    "react-document-title": "^2.0.3",
-    "react-dom": "^16.4.0",
+    "bootstrap": "^4.4.1",
+    "ramda": "^0.27.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
     "react-functional-lifecycle": "^3.0.0",
     "react-highlight": "^0.12.0",
     "react-html-parser": "^2.0.2",
-    "react-redux": "^5.0.7",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
     "redux": "^4.0.0",
     "redux-observable": "^1.0.0",
-    "rxjs": "^6.2.1",
-    "shortid": "^2.2.12"
+    "rxjs": "^6.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

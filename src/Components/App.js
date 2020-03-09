@@ -6,7 +6,6 @@ import './App.css'
 import Store from './../Redux/Store'
 import BlogFeed from './BlogFeed'
 import BlogPost from './BlogPost'
-import DocumentTitle from 'react-document-title'
 import Footer from './Footer'
 import Navbar from './NavBar'
 import SideWidget from './SideWidget/SideWidget'
@@ -18,7 +17,6 @@ import React from 'react'
 export default () =>
   <Provider store={Store}>
     <div className="app">
-      <DocumentTitle title="Joris Langlois"/>
       <Navbar/>
       <div className="main container">
         <div className="row">

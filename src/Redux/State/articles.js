@@ -5,9 +5,9 @@ import { ofType } from './../../Utils'
  * @type Article = {
  *    id :: Number
  *    title :: String
- *    seo_title :: String
+ *    seoTitle :: String
  *    content :: String
- *    date_creation :: Date
+ *    dateCreation :: String
  *    draft :: Number
  * }
  */
@@ -54,6 +54,7 @@ export const error = message => ({
 
 // blog :: (State, Action *) -> State
 export default (state = INITIAL_STATE, action = {}) => cond([
+  // wtf wtf wtf
   [ofType(LOAD_ARTICLES), () => ({
     ...state,
       isLoading: true,

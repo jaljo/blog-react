@@ -1,7 +1,7 @@
 import React from 'react'
-import moment from 'moment'
 import ReactHtmlParser from 'react-html-parser'
 import { highlightCodeSnippets } from '../../Utils'
+import { toEnglishDate } from './../../Utils'
 
 // BlogPost :: Props -> React.Component
 export default ({
@@ -17,7 +17,7 @@ export default ({
               {article.title}
             </h2>
             <h6 className="card-subtitle">
-              {moment(article.date_creation).format('dddd D MMMM YYYY')}
+              {toEnglishDate(article.dateCreation)}
             </h6>
             <div className="content">
               {highlightCodeSnippets(ReactHtmlParser(article.content))}
