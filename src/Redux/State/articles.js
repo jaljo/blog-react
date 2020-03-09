@@ -5,9 +5,9 @@ import { ofType } from './../../Utils'
  * @type Article = {
  *    id :: Number
  *    title :: String
- *    seo_title :: String
+ *    seoTitle :: String
  *    content :: String
- *    date_creation :: Date
+ *    dateCreation :: String
  *    draft :: Number
  * }
  */

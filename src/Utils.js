@@ -6,6 +6,7 @@ import {
   equals,
   map,
   path,
+  pipe,
   prop,
 } from 'ramda'
 
@@ -28,3 +29,12 @@ export const highlightCodeSnippets = indexedMap((element, idx) =>
 
 // ofType :: String -> Action -> Boolean
 export const ofType = actionType => compose(equals(actionType), prop('type'))
+
+// toEnglishDate :: String -> String
+export const toEnglishDate = pipe(
+  isoDate => new Date(isoDate),
+  date => date.toLocaleDateString(
+    'en-US',
+    { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+  ),
+)

@@ -1,9 +1,9 @@
 import React from 'react'
 import { map } from 'ramda'
-import moment from 'moment'
 import ReactHtmlParser from 'react-html-parser'
 import { Link } from 'react-router-dom'
 import { highlightCodeSnippets } from '../../Utils'
+import { toEnglishDate } from './../../Utils'
 
 // BlogFeed :: Props -> React.Component
 export default ({
@@ -30,11 +30,11 @@ const renderFeed = map(article =>
         {highlightCodeSnippets(ReactHtmlParser(article.content))}
       </div>
     </div>
-    <Link className="btn btn-primary" to={`/article/${article.seo_title}`}>
+    <Link className="btn btn-primary" to={`/article/${article.seoTitle}`}>
       Read →
     </Link>
     <div className="card-footer text-muted">
-      Posted on {moment(article.date_creation).format('dddd D MMMM YYYY')}
+      Posted on {toEnglishDate(article.dateCreation)}.
     </div>
   </div>
 )
