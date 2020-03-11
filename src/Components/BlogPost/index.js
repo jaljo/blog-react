@@ -1,13 +1,13 @@
+import BlogPost from './BlogPost'
 import { componentDidMount } from 'react-functional-lifecycle'
 import { connect } from 'react-redux'
-import { compose } from 'ramda'
 import { loadOne } from '../../Redux/State/articleDetails'
-import BlogPost from './BlogPost'
+import { pipe, compose } from 'ramda'
 
 // mapStateToProps :: State -> Props
 const mapStateToProps = state => ({
   error: state.articleDetails.error,
-  isLoading : state.articleDetails.isLoading,
+  isLoading: state.articleDetails.isLoading,
   article: state.articleDetails.article,
 })
 
@@ -23,7 +23,7 @@ const didMount = ({
 }) => initPostLoading(match.params.seoTitle)
 
 // blogPostLifecycles :: React.Component -> React.Component
-const blogPostLifecycles = compose(
+const blogPostLifecycles = pipe(
   componentDidMount(didMount),
 )(BlogPost)
 

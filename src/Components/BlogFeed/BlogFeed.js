@@ -30,7 +30,7 @@ const renderFeed = map(article =>
         {highlightCodeSnippets(ReactHtmlParser(article.content))}
       </div>
     </div>
-    <Link className="btn btn-primary" to={`/article/${article.seoTitle}`}>
+    <Link className="btn btn-primary" to={`/article/${article.slug}`}>
       Read →
     </Link>
     <div className="card-footer text-muted">
