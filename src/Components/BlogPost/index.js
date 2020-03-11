@@ -1,14 +1,14 @@
 import { componentDidMount } from 'react-functional-lifecycle'
 import { connect } from 'react-redux'
 import { compose } from 'ramda'
-import { loadOne } from '../../Redux/State/articles'
+import { loadOne } from '../../Redux/State/articleDetails'
 import BlogPost from './BlogPost'
 
 // mapStateToProps :: State -> Props
 const mapStateToProps = state => ({
-  error: state.articles.error,
-  isLoading : state.articles.isLoading,
-  article: state.articles.article,
+  error: state.articleDetails.error,
+  isLoading : state.articleDetails.isLoading,
+  article: state.articleDetails.article,
 })
 
 // mapDispatchToProps :: (Action * -> State) -> Action
