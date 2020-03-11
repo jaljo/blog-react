@@ -57,6 +57,7 @@ export default (state = INITIAL_STATE, action = {}) => cond([
   // wtf wtf wtf
   [ofType(LOAD_ARTICLES), () => ({
     ...state,
+      error: null,
       isLoading: true,
   })],
 
@@ -68,6 +69,7 @@ export default (state = INITIAL_STATE, action = {}) => cond([
 
   [ofType(LOAD_ONE), () => ({
     ...state,
+      error: null,
       isLoading: true,
   })],
 
