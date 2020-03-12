@@ -1,5 +1,4 @@
-import { cond, T, always } from 'ramda'
-import { ofType } from './../../Utils'
+import { createReducer } from './../../Utils'
 
 /**
  * @type Article = {
@@ -43,25 +42,22 @@ export const error = message => ({
 })
 
 // articleDetails :: (State, Action *) -> State
-export default (state = INITIAL_STATE, action = {}) => cond([
-  // wtf wtf wtf
-  [ofType(LOAD_ONE), () => ({
+export default createReducer(INITIAL_STATE, {
+  [LOAD_ONE]: state => ({
     ...state,
-      error: null,
-      isLoading: true,
-  })],
+    error: null,
+    isLoading: true,
+  }),
 
-  [ofType(ONE_LOADED), () => ({
-    ...state,
-      isLoading: false,
-      article: action.article,
-  })],
-
-  [ofType(ERROR), () => ({
+  [ONE_LOADED]: (state, { article }) => ({
     ...state,
     isLoading: false,
-    error: action.message,
-  })],
+    article: article,
+  }),
 
-  [T, always(INITIAL_STATE)],
-])(action)
+  [ERROR]: (state, { message }) => ({
+    ...state,
+    isLoading: false,
+    error: message,
+  }),
+})
