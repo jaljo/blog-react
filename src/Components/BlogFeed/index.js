@@ -1,13 +1,13 @@
-import { connect } from 'react-redux'
-import { compose } from 'ramda'
-import { componentDidMount } from 'react-functional-lifecycle'
-import { loadArticles } from '../../Redux/State/articles'
 import BlogFeed from './BlogFeed'
+import { componentDidMount } from 'react-functional-lifecycle'
+import { connect } from 'react-redux'
+import { loadArticles } from '../../Redux/State/articles'
+import { pipe, compose } from 'ramda'
 
 // mapStateToProps :: State -> Props
 const mapStateToProps = state => ({
   articles: state.articles.articles,
-  isLoading : state.articles.isLoading,
+  isLoading: state.articles.isLoading,
   error: state.articles.error,
 })
 
@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
 const didMount = ({ initPostsLoading }) => initPostsLoading()
 
 // blogFeedLifecycles :: React.Component -> React.Component
-const blogFeedLifecycles = compose(
+const blogFeedLifecycles = pipe(
   componentDidMount(didMount),
 )(BlogFeed)
 
