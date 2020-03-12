@@ -68,7 +68,3 @@ div.card-footer {
     height: 100px;
   }
 }
-
-nav, footer {
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-}
