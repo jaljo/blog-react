@@ -1,0 +1,8 @@
+nav.navbar.bg-dark {
+  background-image: url('/images/header1.jpeg');
+  background-size: cover;
+}
+
+nav.navbar span.navbar-brand a {
+  color: white;
+}
