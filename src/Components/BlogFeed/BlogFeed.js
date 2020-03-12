@@ -4,6 +4,7 @@ import ReactHtmlParser from 'react-html-parser'
 import { Link } from 'react-router-dom'
 import { highlightCodeSnippets } from '../../Utils'
 import { toEnglishDate } from './../../Utils'
+import Loader from './../Loader'
 
 // BlogFeed :: Props -> React.Component
 export default ({
@@ -11,7 +12,7 @@ export default ({
   isLoading,
   articles,
 }) => isLoading
-  ? <div className="loader"></div>
+  ? <Loader />
   : <section>
       {!error
         ? renderFeed(articles)

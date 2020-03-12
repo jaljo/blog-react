@@ -2,6 +2,7 @@ import React from 'react'
 import ReactHtmlParser from 'react-html-parser'
 import { highlightCodeSnippets } from '../../Utils'
 import { toEnglishDate } from './../../Utils'
+import Loader from './../Loader'
 
 // BlogPost :: Props -> React.Component
 export default ({
@@ -9,7 +10,7 @@ export default ({
   isLoading,
   article,
 }) => isLoading
-  ? <div className="loader"></div>
+  ? <Loader />
   : <section>
       {!error
         ? <article className="card-body">

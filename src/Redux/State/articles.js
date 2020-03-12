@@ -1,5 +1,4 @@
-import { cond, T, always } from 'ramda'
-import { ofType } from './../../Utils'
+import { createReducer } from './../../Utils'
 
 // initial state
 export const INITIAL_STATE = {
@@ -14,12 +13,12 @@ export const ARTICLES_LOADED = '@blog-frontend/articles/ARTICLES_LOADED'
 export const ERROR = '@blog-frontend/articles/ERROR'
 
 // loadArticles :: () -> Action
-export const loadArticles = always({ type: LOAD_ARTICLES })
+export const loadArticles = () => ({ type: LOAD_ARTICLES })
 
 // articlesLoaded :: [Article] -> Action
 export const articlesLoaded = articles => ({
   type: ARTICLES_LOADED,
-  articles
+  articles: articles || [],
 })
 
 // error :: String -> Action
@@ -29,25 +28,22 @@ export const error = message => ({
 })
 
 // articles :: (State, Action *) -> State
-export default (state = INITIAL_STATE, action = {}) => cond([
-  // wtf wtf wtf
-  [ofType(LOAD_ARTICLES), () => ({
+export default createReducer(INITIAL_STATE, {
+  [LOAD_ARTICLES]: state => ({
     ...state,
-      error: null,
-      isLoading: true,
-  })],
+    error: null,
+    isLoading: true,
+  }),
 
-  [ofType(ARTICLES_LOADED), () => ({
-    ...state,
-    isLoading: false,
-    articles: action.articles,
-  })],
-
-  [ofType(ERROR), () => ({
+  [ARTICLES_LOADED]: (state, { articles }) => ({
     ...state,
     isLoading: false,
-    error: action.message,
-  })],
+    articles,
+  }),
 
-  [T, always(INITIAL_STATE)],
-])(action)
+  [ERROR]: (state, { message }) => ({
+    ...state,
+    isLoading: false,
+    error: message,
+  }),
+})
