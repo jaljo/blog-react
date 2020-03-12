@@ -1,5 +1,12 @@
 .main.container {
-  min-height: calc(100vh - 115px - 55px);
+  /* screen height - header height - footer height */
+  min-height: calc(100vh - 54px - 115px);
+}
+
+@media (min-width: 992px) {
+  .main.container {
+    min-height: calc(100vh - 100px - 115px);
+  }
 }
 
 body {
@@ -78,4 +85,8 @@ nav.bg-dark {
   height:32px;
   background-image: url('/images/ajax-loader.gif');
   margin: auto;
+}
+
+nav, footer {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
