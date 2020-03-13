@@ -1,12 +1,19 @@
 import {
+  T,
+  __,
+  always,
   both,
+  complement,
   cond,
   either,
   equals,
+  includes,
+  isNil,
   map,
   o,
   pipe,
   prop,
+  reject,
   tap,
 } from 'ramda'
 
@@ -28,8 +35,14 @@ const isNodeType = nodeType => o(equals(nodeType), prop('nodeType'))
 // isElementNode :: Node -> Boolean
 const isElementNode = isNodeType(1)
 
+// isNotWhiteCharacter :: String -> Boolean
+const isNotWhiteCharacter = complement(includes(__, ['\n']))
+
 // isTextNode :: Node -> Boolean
-const isTextNode = isNodeType(3)
+const isTextNode = both(
+  isNodeType(3),
+  o(isNotWhiteCharacter, prop('wholeText')),
+)
 
 // hasTagName :: String -> Node -> Boolean
 const hasTagName = tagName => o(equals(tagName), prop('tagName'))
@@ -57,10 +70,14 @@ const nodeToComponent = cond([
   [isBold, createBold],
   [isParagraph, createParagraph],
   [isTextNode, createText],
+  [T, always(null)],
 ])
 
 // nodeListToComponents :: [Node] -> [Component]
-const nodeListToComponents = map(nodeToComponent)
+const nodeListToComponents = pipe(
+  map(nodeToComponent),
+  reject(isNil),
+)
 
 // HtmlParser :: Document -> String -> [Component]
 export default document => pipe(

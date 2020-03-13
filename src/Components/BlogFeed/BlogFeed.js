@@ -1,10 +1,9 @@
 import React from 'react'
 import { map } from 'ramda'
-import ReactHtmlParser from 'react-html-parser'
 import { Link } from 'react-router-dom'
-import { highlightCodeSnippets } from '../../Utils'
 import { toEnglishDate } from './../../Utils'
 import Loader from './../Loader'
+import renderComponent from './../SafeHtml'
 
 // BlogFeed :: Props -> React.Component
 export default ({
@@ -28,7 +27,7 @@ const renderFeed = map(article =>
         {article.title}
       </h2>
       <div className="content">
-        {highlightCodeSnippets(ReactHtmlParser(article.content))}
+        {article.content && article.content.map(renderComponent)}
       </div>
     </div>
     <Link className="btn btn-primary" to={`/article/${article.slug}`}>
