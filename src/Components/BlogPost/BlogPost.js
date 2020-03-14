@@ -1,8 +1,7 @@
 import React from 'react'
-import ReactHtmlParser from 'react-html-parser'
-import { highlightCodeSnippets } from '../../Utils'
 import { toEnglishDate } from './../../Utils'
 import Loader from './../Loader'
+import renderComponent from './../SafeHtml'
 
 // BlogPost :: Props -> React.Component
 export default ({
@@ -21,7 +20,7 @@ export default ({
               {toEnglishDate(article.dateCreation)}
             </h6>
             <div className="content">
-              {highlightCodeSnippets(ReactHtmlParser(article.content))}
+              {article.content && article.content.map(renderComponent)}
             </div>
           </article>
         : <p>An error occured. Please retry later.</p>

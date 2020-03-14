@@ -4,6 +4,7 @@ import rootEpic from './../Epics'
 import { createEpicMiddleware } from 'redux-observable'
 import { apply, pipe, tap } from 'ramda'
 import createFetchApi from './../FetchApi'
+import createParser from './../HtmlParser/HtmlParser'
 
 const logger = store => next => pipe(
   tap(action => console.log('Action :: ', action)),
@@ -14,6 +15,7 @@ const logger = store => next => pipe(
 const epicMiddleware = createEpicMiddleware({
   dependencies: {
     fetchApi: createFetchApi(fetch, process.env.REACT_APP_API),
+    parseHtml: createParser(document),
   }
 })
 

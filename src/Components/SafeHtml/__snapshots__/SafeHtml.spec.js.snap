@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Components :: SafeHtml renders a component tree to HTML 1`] = `
+<p>
+  <b>
+    a test text
+    another text
+  </b>
+</p>
+`;
+
+exports[`Components :: SafeHtml renders a paragraph component 1`] = `
+<p>
+  hi there :)
+</p>
+`;
+
+exports[`Components :: SafeHtml renders a text component 1`] = `"a simple text"`;
+
+exports[`Components :: SafeHtml renders bold componet 1`] = `
+<b>
+  a bold text
+</b>
+`;

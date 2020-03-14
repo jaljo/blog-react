@@ -1,6 +1,7 @@
 import * as epic from './articleDetails'
 import * as articleDetails from './../Redux/State/articleDetails'
 import { ActionsObservable } from 'redux-observable'
+import { identity } from 'ramda'
 
 describe('Epics :: articleDetails :: loadOneArticleEpic', () => {
   it('dispatches ONE_LOADED action on fetch succeed', done => {
@@ -8,9 +9,11 @@ describe('Epics :: articleDetails :: loadOneArticleEpic', () => {
     const articleMock = {
       id: 1,
       title: 'This is a cool article about cats',
+      content: '<p>this is a cool pargraph</p>'
     }
     const deps = {
-      fetchApi: () => Promise.resolve(articleMock)
+      fetchApi: () => Promise.resolve(articleMock),
+      parseHtml: identity,
     }
 
     epic.loadOneArticleEpic(action$, null, deps)
