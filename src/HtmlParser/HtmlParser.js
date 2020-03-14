@@ -17,53 +17,58 @@ import {
   tap,
 } from 'ramda'
 
+// supported types
+export const PARAGRAPH = '@type/PARAGRAPH'
+export const BOLD = '@type/BOLD'
+export const TEXT = '@type/TEXT'
+
 /*
  * @type Node
  * @see https://developer.mozilla.org/fr/docs/Web/API/Node
  */
 
  // createComponent :: String -> Node -> Component
-const createComponent = type => node => ({
+export const createComponent = type => node => ({
   type,
   children: node.childNodes ? nodeListToComponents(node.childNodes) : [],
   content: node.wholeText ? node.wholeText : null,
 })
 
 // isNodeType :: Number -> Node ->  Boolean
-const isNodeType = nodeType => o(equals(nodeType), prop('nodeType'))
+export const isNodeType = nodeType => o(equals(nodeType), prop('nodeType'))
 
 // isElementNode :: Node -> Boolean
-const isElementNode = isNodeType(1)
+export const isElementNode = isNodeType(1)
 
 // isNotWhiteCharacter :: String -> Boolean
-const isNotWhiteCharacter = complement(includes(__, ['\n']))
+export const isNotWhiteCharacter = complement(includes(__, ['\n']))
 
 // isTextNode :: Node -> Boolean
-const isTextNode = both(
+export const isTextNode = both(
   isNodeType(3),
   o(isNotWhiteCharacter, prop('wholeText')),
 )
 
 // hasTagName :: String -> Node -> Boolean
-const hasTagName = tagName => o(equals(tagName), prop('tagName'))
+export const hasTagName = tagName => o(equals(tagName), prop('tagName'))
 
 // isParagraph :: Node -> Boolean
-const isParagraph = both(isElementNode, hasTagName('P'))
-
-// createParagraph :: Node -> Component
-const createParagraph = createComponent('PARAGRAPH')
-
-// createText :: Node -> Component
-const createText = createComponent('TEXT')
+export const isParagraph = both(isElementNode, hasTagName('P'))
 
 // isBold :: Node -> Boolean
-const isBold = both(
+export const isBold = both(
   isElementNode,
   either(hasTagName('B'), hasTagName('STRONG'))
 )
 
+// createText :: Node -> Component
+export const createText = createComponent(TEXT)
+
+// createParagraph :: Node -> Component
+export const createParagraph = createComponent(PARAGRAPH)
+
 // createBold :: Node -> Component
-const createBold = createComponent('BOLD')
+export const createBold = createComponent(BOLD)
 
 // nodeToComponent :: Node -> Component
 const nodeToComponent = cond([
@@ -85,6 +90,7 @@ export default document => pipe(
   html => [document.createElement('div'), html],
   // build a tree from that HTML
   tap(([ div, html ]) => div.innerHTML = html),
+  // tap(console.warn),
   // transform node trees to safe components
   ([ tree ]) => nodeListToComponents(tree.childNodes),
 )

@@ -1,13 +1,17 @@
 import * as epic from './articles'
 import * as articles from './../Redux/State/articles'
 import { ActionsObservable } from 'redux-observable'
+import { identity } from 'ramda'
 
 describe('Epics :: articles :: loadArticlesEpic', () => {
   it('dispatches ARTICLES_LOADED action on fetch succeed', done => {
     const action$ = ActionsObservable.of(articles.loadArticles())
-    const articlesMock = [1,2,3]
+    const articlesMock = [{
+      content: '<p>This is a content</p>'
+    }]
     const deps = {
-      fetchApi: () => Promise.resolve(articlesMock)
+      fetchApi: () => Promise.resolve(articlesMock),
+      parseHtml: identity,
     }
 
     epic.loadArticlesEpic(action$, null, deps)

@@ -1,6 +1,5 @@
-// wtf
+// wtf wtf wtf
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import '../../node_modules/highlight.js/styles/github.css'
 
 import './App.css'
 import Store from './../Redux/Store'
