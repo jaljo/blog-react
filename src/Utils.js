@@ -11,7 +11,9 @@ import {
 export const createReducer = (INITAL_STATE, actions) => (state, action = {}) =>
   has('type', action) && has(action.type, actions)
     ? actions[action.type](state, action)
-    : INITAL_STATE
+    : state
+      ? state
+      : INITAL_STATE
 
 /**
  * Date utilities
