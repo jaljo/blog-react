@@ -22,9 +22,24 @@ export const PARAGRAPH = '@type/PARAGRAPH'
 export const BOLD = '@type/BOLD'
 export const TEXT = '@type/TEXT'
 
-/*
+/**
  * @type Node
+ *
  * @see https://developer.mozilla.org/fr/docs/Web/API/Node
+ */
+
+/**
+ * @type Document
+ *
+ * @see https://developer.mozilla.org/fr/docs/Web/API/Document
+ */
+
+/**
+ * @type Component = {
+ *    type :: String
+ *    children: [Component]
+ *    content: Maybe String
+ * }
  */
 
  // createComponent :: String -> Node -> Component
@@ -90,7 +105,6 @@ export default document => pipe(
   html => [document.createElement('div'), html],
   // build a tree from that HTML
   tap(([ div, html ]) => div.innerHTML = html),
-  // tap(console.warn),
   // transform node trees to safe components
   ([ tree ]) => nodeListToComponents(tree.childNodes),
 )
