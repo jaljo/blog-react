@@ -13,14 +13,11 @@ const mapStateToProps = state => ({
 
 // mapDispatchToProps :: (Action * -> State) -> Action
 const mapDispatchToProps = dispatch => ({
-  initPostLoading: compose(dispatch, loadOne),
+  loadArticle: compose(dispatch, loadOne),
 })
 
 // didMount :: Props -> Action.LOAD_ONE
-const didMount = ({
-  match,
-  initPostLoading,
-}) => initPostLoading(match.params.seoTitle)
+const didMount = ({ loadArticle }) => loadArticle()
 
 // blogPostLifecycles :: React.Component -> React.Component
 const blogPostLifecycles = pipe(

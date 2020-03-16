@@ -19,7 +19,12 @@ const mapDispatchToProps = dispatch => ({
   register: compose(dispatch, register),
 })
 
-const didMount = ({ name, pattern, register }) => register(name, pattern)
+const didMount = ({
+  name,
+  parameters,
+  pattern,
+  register,
+}) => register(name, pattern, parameters)
 
 const lifecycles = compose(
   componentDidMount(didMount)

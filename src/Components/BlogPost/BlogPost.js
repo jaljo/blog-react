@@ -2,6 +2,7 @@ import React from 'react'
 import { toEnglishDate } from './../../Utils'
 import Loader from './../Loader'
 import renderComponent from './../SafeHtml'
+import Link from './../Router/Link'
 
 // BlogPost :: Props -> React.Component
 export default ({
@@ -22,6 +23,9 @@ export default ({
             <div className="content">
               {article.content && article.content.map(renderComponent)}
             </div>
+            <Link className="btn btn-primary" to={'/'}>
+              ← Back
+            </Link>
           </article>
         : <p>An error occured. Please retry later.</p>
       }

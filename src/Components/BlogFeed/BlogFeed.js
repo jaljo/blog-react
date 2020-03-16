@@ -1,6 +1,7 @@
 import React from 'react'
 import { map } from 'ramda'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
+import Link from './../Router/Link'
 import { toEnglishDate } from './../../Utils'
 import Loader from './../Loader'
 import renderComponent from './../SafeHtml'
@@ -29,10 +30,10 @@ const renderFeed = map(article =>
       <div className="content">
         {article.content && article.content.map(renderComponent)}
       </div>
+      <Link className="btn btn-primary" to={`/article/${article.slug}`}>
+        Read →
+      </Link>
     </div>
-    <Link className="btn btn-primary" to={`/article/${article.slug}`}>
-      Read →
-    </Link>
     <div className="card-footer text-muted">
       Posted on {toEnglishDate(article.dateCreation)}.
     </div>

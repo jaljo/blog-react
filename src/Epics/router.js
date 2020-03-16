@@ -2,6 +2,7 @@ import { ignoreElements, tap, map, withLatestFrom, filter } from 'rxjs/operators
 import { fromEvent, merge } from 'rxjs'
 import { combineEpics, ofType } from 'redux-observable'
 import {
+  CHANGE_ROUTE,
   FIND_ROUTE,
   READY,
   findRoute,
@@ -11,6 +12,7 @@ import {
   complement,
   evolve,
   filter as rfilter,
+  fromPairs,
   head,
   isEmpty,
   isNil,
@@ -18,11 +20,30 @@ import {
   pipe,
   prop,
   slice,
+  zip,
 } from 'ramda'
 
+// resolveFirstLocationEpic :: Epic -> Observable Action READY
 export const resolveFirstLocationEpic = (action$, state$, { window }) =>
   action$.pipe(
     ofType(READY),
+    map(() => findRoute(window.location.pathname)),
+  )
+
+// changeRouteEpic :: Epic -> Observable Action FIND_ROUTE
+export const changeRouteEpic = (action$, state$, { window }) =>
+  action$.pipe(
+    ofType(CHANGE_ROUTE),
+    tap(({ location }) => window.history.pushState({}, '', location)),
+    map(({ location }) => findRoute(location)),
+  )
+
+// historyChangedEpic :: Epic -> Observable Action FIND_ROUTE
+const historyChangedEpic = (action$, state$, { window }) =>
+  merge(
+    fromEvent(window, 'popstate'),
+    fromEvent(window, 'pushstate'),
+  ).pipe(
     map(() => findRoute(window.location.pathname)),
   )
 
@@ -42,21 +63,15 @@ export const findRouteEpic = (action$, state$) => action$.pipe(
   map(pipe(
     head,
     evolve({ matches: slice(1, Infinity)}),
-    ({ name, matches }) => routeFound(name, matches),
+    ({ name, parameters, matches }) => routeFound(
+      name,
+      fromPairs(zip(parameters, matches))
+    ),
   )),
 )
 
-//
-const historyChangedEpic = (action$, state$, { window }) =>
-  merge(
-    fromEvent(window, 'popstate'),
-    fromEvent(window, 'pushstate'),
-  ).pipe(
-    tap(console.warn),
-    ignoreElements(),
-  )
-
 export default combineEpics(
+  changeRouteEpic,
   findRouteEpic,
   historyChangedEpic,
   resolveFirstLocationEpic,
