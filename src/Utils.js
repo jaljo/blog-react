@@ -2,6 +2,8 @@ import {
   has,
   pipe,
 } from 'ramda'
+import { StateObservable } from 'redux-observable'
+import { Subject } from 'rxjs'
 
 /**
  * Redux utilities
@@ -27,3 +29,11 @@ export const toEnglishDate = pipe(
     { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
   ),
 )
+
+/**
+ * Test utils
+ */
+
+// createObservabelState :: Object -> Observable State
+export const createObservableState = state =>
+  new StateObservable(new Subject(), state)

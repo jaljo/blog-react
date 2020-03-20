@@ -1,4 +1,4 @@
-import { ignoreElements, tap, map, withLatestFrom, filter } from 'rxjs/operators'
+import { tap, map, withLatestFrom, filter } from 'rxjs/operators'
 import { fromEvent, merge } from 'rxjs'
 import { combineEpics, ofType } from 'redux-observable'
 import {

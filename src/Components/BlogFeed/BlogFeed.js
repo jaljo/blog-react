@@ -1,6 +1,5 @@
 import React from 'react'
 import { map } from 'ramda'
-// import { Link } from 'react-router-dom'
 import Link from './../Router/Link'
 import { toEnglishDate } from './../../Utils'
 import Loader from './../Loader'

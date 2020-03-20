@@ -2,10 +2,18 @@ import * as epic from './articleDetails'
 import * as articleDetails from './../Redux/State/articleDetails'
 import { ActionsObservable } from 'redux-observable'
 import { identity } from 'ramda'
+import { createObservableState } from './../Utils'
 
 describe('Epics :: articleDetails :: loadOneArticleEpic', () => {
   it('dispatches ONE_LOADED action on fetch succeed', done => {
     const action$ = ActionsObservable.of(articleDetails.loadOne(1))
+    const state$ = createObservableState({
+      router: {
+        activeRoute: {
+          parameters: { slug: 'test-slug' },
+        },
+      },
+    })
     const articleMock = {
       id: 1,
       title: 'This is a cool article about cats',
@@ -16,7 +24,7 @@ describe('Epics :: articleDetails :: loadOneArticleEpic', () => {
       parseHtml: identity,
     }
 
-    epic.loadOneArticleEpic(action$, null, deps)
+    epic.loadOneArticleEpic(action$, state$, deps)
       .toPromise(Promise)
       .then(action => {
         expect(action.type).toBe(articleDetails.ONE_LOADED)
@@ -28,11 +36,18 @@ describe('Epics :: articleDetails :: loadOneArticleEpic', () => {
 
   it('dispatches ERROR action on fetch failure', done => {
     const action$ = ActionsObservable.of(articleDetails.loadOne(10))
+    const state$ = createObservableState({
+      router: {
+        activeRoute: {
+          parameters: { slug: 'test-slug' },
+        },
+      },
+    })
     const deps = {
       fetchApi: () => Promise.reject('error')
     }
 
-    epic.loadOneArticleEpic(action$, null, deps)
+    epic.loadOneArticleEpic(action$, state$, deps)
       .toPromise(Promise)
       .then(action => {
         expect(action.type).toBe(articleDetails.ERROR)
