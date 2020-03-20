@@ -1,27 +1,63 @@
-import { tap, map, withLatestFrom, filter } from 'rxjs/operators'
-import { fromEvent, merge } from 'rxjs'
+import { switchMap, tap, map, withLatestFrom, filter, ignoreElements, catchError } from 'rxjs/operators'
+import { fromEvent, merge, of, iif, throwError } from 'rxjs'
 import { combineEpics, ofType } from 'redux-observable'
 import {
   CHANGE_ROUTE,
   FIND_ROUTE,
   READY,
+  REGISTER,
+  error,
   findRoute,
   routeFound,
+  registered,
 } from './../Redux/State/router'
 import {
   complement,
+  equals,
   evolve,
   filter as rfilter,
   fromPairs,
   head,
+  ifElse,
   isEmpty,
   isNil,
+  length,
+  match,
   o,
   pipe,
   prop,
   slice,
   zip,
 } from 'ramda'
+
+// routeValid :: [String] -> String -> Action
+export const routeValid = (parameters = []) => pipe(
+  match(/\(.*?\)/g),
+  length,
+  equals(parameters.length),
+)
+
+export const nonMatchingParametersNumberException = `
+  Number of catching parenthesis in pattern does not match number of named
+  parameters specified
+`
+
+// registerRouteEpic :: Epic -> Observable Action REGISTERED ERROR
+export const registerRouteEpic = action$ =>
+  action$.pipe(
+    ofType(REGISTER),
+    switchMap(action => of(action).pipe(
+      // validates that the pattern is a correct regex
+      tap(({ pattern }) => new RegExp(pattern)),
+      // ensure that named parameters match catched parameters
+      map(ifElse(
+        ({ pattern, parameters }) => routeValid(parameters)(pattern),
+        ({ name, pattern, parameters }) => registered(name, pattern, parameters),
+        () => { throw nonMatchingParametersNumberException },
+      )),
+      catchError(message => of(error(message))),
+    )),
+  )
 
 // resolveFirstLocationEpic :: Epic -> Observable Action READY
 export const resolveFirstLocationEpic = (action$, state$, { window }) =>
@@ -47,6 +83,7 @@ const historyChangedEpic = (action$, state$, { window }) =>
     map(() => findRoute(window.location.pathname)),
   )
 
+// findRouteEpic :: Epic -> Observable Action ROUTE_FOUND
 export const findRouteEpic = (action$, state$) => action$.pipe(
   ofType(FIND_ROUTE),
   withLatestFrom(state$),
@@ -74,5 +111,6 @@ export default combineEpics(
   changeRouteEpic,
   findRouteEpic,
   historyChangedEpic,
+  registerRouteEpic,
   resolveFirstLocationEpic,
 )
