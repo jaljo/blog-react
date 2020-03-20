@@ -1,5 +1,5 @@
-import { switchMap, tap, map, withLatestFrom, filter, ignoreElements, catchError } from 'rxjs/operators'
-import { fromEvent, merge, of, iif, throwError } from 'rxjs'
+import { switchMap, tap, map, withLatestFrom, catchError } from 'rxjs/operators'
+import { fromEvent, merge, of } from 'rxjs'
 import { combineEpics, ofType } from 'redux-observable'
 import {
   CHANGE_ROUTE,
@@ -14,20 +14,12 @@ import {
 import {
   complement,
   equals,
-  evolve,
   filter as rfilter,
-  fromPairs,
-  head,
   ifElse,
   isEmpty,
-  isNil,
   length,
   match,
-  o,
   pipe,
-  prop,
-  slice,
-  zip,
 } from 'ramda'
 
 // routeValid :: [String] -> String -> Action
@@ -83,29 +75,39 @@ const historyChangedEpic = (action$, state$, { window }) =>
     map(() => findRoute(window.location.pathname)),
   )
 
-// findRouteEpic :: Epic -> Observable Action ROUTE_FOUND
-export const findRouteEpic = (action$, state$) => action$.pipe(
-  ofType(FIND_ROUTE),
-  withLatestFrom(state$),
-  // match location against route registry
-  map(([ { location }, { router } ]) => router.routes.map(
-    route => ({
-      ...route,
-      matches: location.match(new RegExp(route.pattern))
-    })
-  )),
-  // only keep matching route candidates
-  map(rfilter(o(complement(isNil), prop('matches')))),
-  filter(complement(isEmpty)),
-  map(pipe(
-    head,
-    evolve({ matches: slice(1, Infinity)}),
-    ({ name, parameters, matches }) => routeFound(
-      name,
-      fromPairs(zip(parameters, matches))
-    ),
-  )),
+/**
+ * @type Route = {
+ *   name :: String
+ *   pattern :: String
+ *   parameters :: [String]
+ * }
+ */
+
+// pathMatchesRoutePattern :: String -> Route
+export const pathMatchesRoutePattern = path => pipe(
+  ({ pattern }) => match(new RegExp(pattern), path),
+  complement(isEmpty),
 )
+
+// findRouteEpic :: Epic -> Observable Action ROUTE_FOUND ROUTE_NOT_FOUND
+export const findRouteEpic = (action$, state$) =>
+  action$.pipe(
+    ofType(FIND_ROUTE),
+    switchMap(action => of(action).pipe(
+      withLatestFrom(state$),
+      // only keep routes that matches the given location
+      map(([ action, state ]) => rfilter(
+        pathMatchesRoutePattern(action.location),
+        state.router.routes,
+      )),
+      map(ifElse(
+        complement(isEmpty),
+        ([ route ]) => routeFound(action.location, route),
+        // @todo use a routeNotFound action instead of this generic error
+        error,
+      )),
+    )),
+  )
 
 export default combineEpics(
   changeRouteEpic,

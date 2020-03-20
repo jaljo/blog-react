@@ -67,3 +67,17 @@ describe('Epics :: router :: registerRouteEpic', () => {
       .catch(error => {fail(error); done()})
   })
 })
+
+describe('Epics :: router :: pathMatchesRoutePattern', () => {
+  it('determines that a path matches a route pattern', () => {
+    const routeMock = { pattern: `^\/article\/test\/?$` }
+
+    expect(
+      epic.pathMatchesRoutePattern('/article/test')(routeMock)
+    ).toBeTruthy()
+
+    expect(
+      epic.pathMatchesRoutePattern('/test/a')(routeMock)
+    ).toBeFalsy()
+  })
+})

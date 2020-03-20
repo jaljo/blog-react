@@ -1,4 +1,5 @@
 import { createReducer } from './../../Utils';
+import { pipe, zip, match, slice, fromPairs } from 'ramda'
 
 export const INITIAL_STATE = {
   activeRoute: {},
@@ -44,11 +45,11 @@ export const findRoute = location => ({
   location,
 })
 
-// routeFound :: (String, Object) -> Action
-export const routeFound = (name, parameters = {}) => ({
+// routeFound :: (String, Route) -> Action
+export const routeFound = (location, route = {}) => ({
   type: ROUTE_FOUND,
-  name,
-  parameters,
+  location,
+  route,
 })
 
 // error :: String -> Action
@@ -56,6 +57,16 @@ export const error = message => ({
   type: ERROR,
   message,
 })
+
+// resolveParameters :: Route -> String -> Object
+export const resolveParameters = ({ parameters, pattern }) => pipe(
+  // extracts parmeters from the path
+  match(new RegExp(pattern)),
+  slice(1, Infinity),
+  // create pairs of parameters and build the final object
+  zip(parameters),
+  fromPairs,
+)
 
 export default createReducer(INITIAL_STATE, {
   [REGISTERED]: (state, { name, pattern, parameters }) => ({
@@ -66,9 +77,12 @@ export default createReducer(INITIAL_STATE, {
     ],
   }),
 
-  [ROUTE_FOUND]: (state, { name, parameters }) => ({
+  [ROUTE_FOUND]: (state, { location, route }) => ({
     ...state,
-    activeRoute: { name, parameters },
-  }),
+    activeRoute: {
+      name: route.name,
+      parameters: resolveParameters(route)(location),
+    }
+  })
 })
 

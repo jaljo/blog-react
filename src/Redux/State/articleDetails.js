@@ -2,12 +2,12 @@ import { createReducer } from './../../Utils'
 
 /**
  * @type Article = {
- *    id :: Number
- *    title :: String
- *    slug :: String
- *    content :: String
- *    dateCreation :: String
- *    draft :: Number
+ *   id :: Number
+ *   title :: String
+ *   slug :: String
+ *   content :: String
+ *   dateCreation :: String
+ *   draft :: Number
  * }
  */
 
