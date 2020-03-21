@@ -1,0 +1,15 @@
+[data-is="error"] h1 {
+  color: #72840E;
+  font-size: 6rem;
+  text-align: center;
+}
+
+[data-is="error"] p {
+  text-align: center;
+}
+
+[data-is="error"] a.btn {
+  display: block;
+  width: 200px;
+  margin: 3rem auto;
+}

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import articles from './articles'
 import articleDetails from './articleDetails'
+import articles from './articles'
+import router from './router'
 
 export default combineReducers({
   articleDetails,
   articles,
+  router,
 })

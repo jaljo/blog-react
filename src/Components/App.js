@@ -9,8 +9,10 @@ import Footer from './Footer'
 import Navbar from './NavBar'
 import SideWidget from './SideWidget/SideWidget'
 import { Provider } from 'react-redux'
-import { Route } from 'react-router-dom'
 import React from 'react'
+import Route from './Router/Route'
+import Router from './Router/Router'
+import Error from './Router/Error'
 
 // App :: () -> React.Component
 export default () =>
@@ -20,8 +22,15 @@ export default () =>
       <div className="main container">
         <div className="row">
           <div className="col-md-8 my-4">
-            <Route exact path='/' component={BlogFeed}/>
-            <Route exact path='/article/:seoTitle' component={BlogPost}/>
+            <Router>
+              <Route name="article-details" pattern="^\/article\/([\w-]+)\/?$" parameters={['slug']}>
+                <BlogPost />
+              </Route>
+              <Route name="article-list" pattern="^\/?$">
+                <BlogFeed />
+              </Route>
+              <Error />
+            </Router>
           </div>
           <div className="col-md-4">
             <SideWidget/>

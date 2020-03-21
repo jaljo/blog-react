@@ -27,14 +27,16 @@ h5 {
 
 /* btn custom style */
 a.btn {
-  margin-left: 1.25rem;
-  margin-bottom: 1rem;
+  color: white;
+  margin: 1rem 0;
   font-size: 0.8rem;
   border: none;
   background-color: #72840E;
   width: 100px;
 }
 a.btn:hover {
+  color: white;
+  font-weight: bold;
   background-color: #7C8E14;
 }
 

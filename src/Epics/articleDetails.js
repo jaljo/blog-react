@@ -1,7 +1,7 @@
-import { map, mergeMap, catchError } from 'rxjs/operators'
+import { map, mergeMap, catchError, withLatestFrom, filter } from 'rxjs/operators'
 import { ofType, combineEpics } from 'redux-observable'
 import { of, from } from 'rxjs'
-import { pipe, evolve } from 'ramda'
+import { pipe, evolve, hasPath } from 'ramda'
 import {
   LOAD_ONE,
   error,
@@ -12,8 +12,10 @@ import {
 export const loadOneArticleEpic = (action$, state$, { fetchApi, parseHtml }) =>
   action$.pipe(
     ofType(LOAD_ONE),
-    mergeMap(({ slug }) => from(
-      fetchApi(`/articles/${slug}`)
+    withLatestFrom(state$),
+    filter(hasPath([1, 'router', 'activeRoute', 'parameters', 'slug'])),
+    mergeMap(([ _, state ]) => from(
+      fetchApi(`/articles/${state.router.activeRoute.parameters.slug}`)
     ).pipe(
       map(pipe(
         evolve({ content: parseHtml }),

@@ -2,12 +2,12 @@ import { createReducer } from './../../Utils'
 
 /**
  * @type Article = {
- *    id :: Number
- *    title :: String
- *    slug :: String
- *    content :: String
- *    dateCreation :: String
- *    draft :: Number
+ *   id :: Number
+ *   title :: String
+ *   slug :: String
+ *   content :: String
+ *   dateCreation :: String
+ *   draft :: Number
  * }
  */
 
@@ -23,11 +23,8 @@ export const LOAD_ONE = '@blog-frontend/articleDetails/LOAD_ONE'
 export const ONE_LOADED = '@blog-frontend/articleDetails/ONE_LOADED'
 export const ERROR = '@blog-frontend/articleDetails/ERROR'
 
-// loadOne :: String -> Action
-export const loadOne = slug => ({
-  type: LOAD_ONE,
-  slug,
-})
+// loadOne :: () -> Action
+export const loadOne = () => ({ type: LOAD_ONE })
 
 // oneLoaded :: Article -> Action
 export const oneLoaded = article => ({

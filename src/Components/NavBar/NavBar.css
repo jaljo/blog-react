@@ -5,5 +5,10 @@ nav.navbar.bg-dark {
 }
 
 nav.navbar span.navbar-brand a {
+  cursor: pointer;
   color: white;
+}
+
+nav.navbar span.navbar-brand a:hover {
+  text-decoration: underline;
 }

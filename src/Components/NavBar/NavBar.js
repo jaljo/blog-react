@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from './../Router/Link'
 import './NavBar.css'
 
 // NavBar :: () -> React.Component
