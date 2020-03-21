@@ -36,7 +36,6 @@ export const nonMatchingParametersNumberException = () => `
   Number of catching parenthesis in pattern does not match number of named
   parameters specified
 `
-
 // pageNotFoundException :: String -> String
 export const pageNotFoundException = path =>
   `The requested location has not been found: ${path}`
