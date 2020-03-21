@@ -31,10 +31,15 @@ export const routeValid = (parameters = []) => pipe(
   equals(parameters.length),
 )
 
-export const nonMatchingParametersNumberException = `
+// nonMatchingParametersNumberException :: () -> String
+export const nonMatchingParametersNumberException = () => `
   Number of catching parenthesis in pattern does not match number of named
   parameters specified
 `
+
+// pageNotFoundException :: String -> String
+export const pageNotFoundException = path =>
+  `The requested location has not been found: ${path}`
 
 // registerRouteEpic :: Epic -> Observable Action REGISTERED ERROR
 export const registerRouteEpic = action$ =>
@@ -47,7 +52,7 @@ export const registerRouteEpic = action$ =>
       map(ifElse(
         ({ pattern, parameters }) => routeValid(parameters)(pattern),
         ({ name, pattern, parameters }) => registered(name, pattern, parameters),
-        () => { throw nonMatchingParametersNumberException },
+        () => { throw nonMatchingParametersNumberException() },
       )),
       catchError(message => of(error(HTTP_INTERNAL_SERVER_ERROR, message))),
     )),
@@ -105,7 +110,7 @@ export const findRouteEpic = (action$, state$) =>
       map(ifElse(
         complement(isEmpty),
         ([ route ]) => routeFound(action.location, route),
-        () => error(HTTP_NOT_FOUND, action.location),
+        () => error(HTTP_NOT_FOUND, pageNotFoundException(action.location)),
       )),
     )),
   )

@@ -64,7 +64,7 @@ describe('Epics :: router :: registerRouteEpic', () => {
       .then(action => {
         expect(action.type).toBe(router.ERROR)
         expect(action.httpCode).toBe(500)
-        expect(action.message).toBe(epic.nonMatchingParametersNumberException)
+        expect(action.message).toBe(epic.nonMatchingParametersNumberException())
         done()
       })
       .catch(error => {fail(error); done()})
@@ -165,7 +165,7 @@ describe('Epics :: router :: findRouteEpic', () => {
       .then(action => {
         expect(action.type).toBe(router.ERROR)
         expect(action.httpCode).toBe(404)
-        expect(action.message).toBe('/test/1234')
+        expect(action.message).toBe('The requested location has not been found: /test/1234')
         done()
       })
       .catch(error => { fail(error); done() })

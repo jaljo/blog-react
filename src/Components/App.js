@@ -12,6 +12,7 @@ import { Provider } from 'react-redux'
 import React from 'react'
 import Route from './Router/Route'
 import Router from './Router/Router'
+import Error from './Router/Error'
 
 // App :: () -> React.Component
 export default () =>
@@ -28,6 +29,7 @@ export default () =>
               <Route name="article-list" pattern="^\/?$">
                 <BlogFeed />
               </Route>
+              <Error />
             </Router>
           </div>
           <div className="col-md-4">

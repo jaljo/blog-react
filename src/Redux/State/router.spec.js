@@ -1,9 +1,10 @@
 import {
   INITIAL_STATE,
   default as reducer,
+  error,
   registered,
-  routeFound,
   resolveParameters,
+  routeFound,
 } from './router'
 
 describe('Redux :: State :: router', () => {
@@ -67,6 +68,18 @@ describe('Redux :: State :: router', () => {
         parameters: {
           slug: 'lorem-ipsum',
         }
+      }
+    })
+  })
+
+  it('reduces error action', () => {
+    expect(
+      reducer(INITIAL_STATE, error(500, 'this is an error'))
+    ).toEqual({
+      ...INITIAL_STATE,
+      error: {
+        httpCode: 500,
+        message: 'this is an error',
       }
     })
   })
