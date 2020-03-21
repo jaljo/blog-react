@@ -4,12 +4,14 @@ import { combineEpics, ofType } from 'redux-observable'
 import {
   CHANGE_ROUTE,
   FIND_ROUTE,
+  HTTP_INTERNAL_SERVER_ERROR,
+  HTTP_NOT_FOUND,
   READY,
   REGISTER,
   error,
   findRoute,
-  routeFound,
   registered,
+  routeFound,
 } from './../Redux/State/router'
 import {
   complement,
@@ -47,7 +49,7 @@ export const registerRouteEpic = action$ =>
         ({ name, pattern, parameters }) => registered(name, pattern, parameters),
         () => { throw nonMatchingParametersNumberException },
       )),
-      catchError(message => of(error(message))),
+      catchError(message => of(error(HTTP_INTERNAL_SERVER_ERROR, message))),
     )),
   )
 
@@ -103,8 +105,7 @@ export const findRouteEpic = (action$, state$) =>
       map(ifElse(
         complement(isEmpty),
         ([ route ]) => routeFound(action.location, route),
-        // @todo use a routeNotFound action instead of this generic error
-        error,
+        () => error(HTTP_NOT_FOUND, action.location),
       )),
     )),
   )
