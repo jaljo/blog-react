@@ -1,5 +1,13 @@
+[data-is="side-widget"] {
+  font-size: 1rem;
+}
+
+[data-is="side-widget"] h5 {
+  color: #837474;
+}
+
 @media (min-width: 768px) {
-  .card.about {
+  [data-is="side-widget"] {
     position: fixed;
     width: 210px;
   }
