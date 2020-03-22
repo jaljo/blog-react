@@ -3,7 +3,7 @@ import React from 'react'
 // ExternalLink :: Props -> React.Component
 export default ({
   to,
-  children
+  children,
 }) =>
   <a
     href={to}
