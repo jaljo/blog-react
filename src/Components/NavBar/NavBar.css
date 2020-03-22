@@ -1,14 +1,32 @@
-nav.navbar.bg-dark {
+header {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
   background-image: url('/images/header1.jpeg');
   background-size: cover;
+  height: 55px;
 }
 
-nav.navbar span.navbar-brand a {
+header section {
+  padding: 0 1.25rem;
+}
+
+header section span.navbar-brand a {
+  display: block;
+  margin-top: 5px;
   cursor: pointer;
   color: white;
 }
 
-nav.navbar span.navbar-brand a:hover {
+header section span.navbar-brand a:hover {
   text-decoration: underline;
+  color: white;
+}
+
+@media (min-width: 992px) {
+  header {
+    height: 100px;
+  }
+
+  header section span.navbar-brand a {
+    font-size: 1.75rem;
+  }
 }
