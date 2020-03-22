@@ -171,3 +171,24 @@ describe('Epics :: router :: findRouteEpic', () => {
       .catch(error => { fail(error); done() })
   }, 1000)
 })
+
+describe('Epics :: router :: scrollToTopOnPageChangeEpic', () => {
+  it('resets the scroll position on route change', done => {
+    const action$ = ActionsObservable.of(router.changeRoute())
+    const scrollCall = []
+    const deps = {
+      window: {
+        scroll: (a, b) => scrollCall.push([a, b])
+      }
+    }
+
+    epic.scrollToTopOnPageChangeEpic(action$, null, deps)
+      .toPromise(Promise)
+      .then(() => {
+        expect(scrollCall).toHaveLength(1)
+        expect(scrollCall[0]).toEqual([0, 0])
+        done()
+      })
+      .catch(error => {fail(error); done()})
+  })
+})
