@@ -1,4 +1,4 @@
-import { switchMap, tap, map, withLatestFrom, catchError } from 'rxjs/operators'
+import { switchMap, tap, map, withLatestFrom, catchError, ignoreElements } from 'rxjs/operators'
 import { fromEvent, merge, of } from 'rxjs'
 import { combineEpics, ofType } from 'redux-observable'
 import {
@@ -114,10 +114,19 @@ export const findRouteEpic = (action$, state$) =>
     )),
   )
 
+// scrollToTopOnPageChangeEpic :: Epic -> _
+export const scrollToTopOnPageChangeEpic = (action$, state, { window }) =>
+  action$.pipe(
+    ofType(CHANGE_ROUTE),
+    tap(() => window.scroll(0, 0)),
+    ignoreElements(),
+  )
+
 export default combineEpics(
   changeRouteEpic,
   findRouteEpic,
   historyChangedEpic,
   registerRouteEpic,
   resolveFirstLocationEpic,
+  scrollToTopOnPageChangeEpic,
 )
