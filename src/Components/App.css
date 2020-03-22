@@ -1,11 +1,11 @@
 .main.container {
   /* screen height - header height - footer height */
-  min-height: calc(100vh - 54px - 115px);
+  min-height: calc(100vh - 55px - 130px);
 }
 
 @media (min-width: 992px) {
   .main.container {
-    min-height: calc(100vh - 100px - 115px);
+    min-height: calc(100vh - 100px - 130px);
   }
 }
 

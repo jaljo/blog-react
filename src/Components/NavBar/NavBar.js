@@ -4,10 +4,16 @@ import './NavBar.css'
 
 // NavBar :: () -> React.Component
 export default () =>
-  <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <header className="fixed-top">
     <div className="container">
-      <span className="navbar-brand">
-        <Link to="/">Joris Langlois</Link>
-      </span>
+      <div className="row">
+        <div className="col-md-12">
+            <section>
+              <span className="navbar-brand">
+                <Link to="/">Joris Langlois</Link>
+              </span>
+            </section>
+        </div>
+      </div>
     </div>
-  </nav>
+  </header>
