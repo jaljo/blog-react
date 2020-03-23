@@ -1,6 +1,25 @@
 import * as HtmlParser from './HtmlParser'
+import { link } from 'fs';
 
 describe('HtmlParser :: HtmlParser', () => {
+  it('merge node attributes in an object', () => {
+    const nodeMapNock = {
+      href: 'test',
+      class: 'myclass',
+      id: 'myid',
+    }
+    const nodeMock = {
+      getAttribute: attrName => nodeMapNock[attrName]
+    }
+
+    expect(
+      HtmlParser.mergeNodeAttributes(nodeMock)(['href', 'class'])
+    ).toEqual({
+      class: 'myclass',
+      href: 'test',
+    })
+  })
+
   it('creates a component with the correct type', () => {
     expect(
       HtmlParser.createComponent('@type/TEST')({})
@@ -64,6 +83,14 @@ describe('HtmlParser :: HtmlParser', () => {
     expect(HtmlParser.isBold(notBoldNodeMock)).toBeFalsy()
   })
 
+  it('identifies a link node', () => {
+    const linkNodeMock = { nodeType: 1, tagName: 'A' }
+    const notLinkNodeMock = { nodeType: 1, tagName: 'P' }
+
+    expect(HtmlParser.isLink(linkNodeMock)).toBeTruthy()
+    expect(HtmlParser.isLink(notLinkNodeMock)).toBeFalsy()
+  })
+
   it('creates a paragraph component', () => {
     const paragraphNodeMock = {
       nodeType: 1,
@@ -121,6 +148,34 @@ describe('HtmlParser :: HtmlParser', () => {
       type: '@type/TEXT',
       children: [],
       content: 'a text to test',
+    })
+  })
+
+  it('creates a link component', () => {
+    const linkMock = {
+      nodeType: 1,
+      getAttribute: () => 'jlanglois.fr',
+      childNodes: [
+        {
+          nodeType: 3,
+          wholeText: 'a link text child'
+        }
+      ],
+    }
+
+    expect(
+      HtmlParser.createLink(linkMock)
+    ).toEqual({
+      type: '@type/LINK',
+      children: [
+        {
+          type: '@type/TEXT',
+          children: [],
+          content: 'a link text child',
+        }
+      ],
+      content: null,
+      href: 'jlanglois.fr',
     })
   })
 
