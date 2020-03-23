@@ -2,6 +2,7 @@ import {
   T,
   __,
   always,
+  assoc,
   both,
   complement,
   cond,
@@ -13,6 +14,7 @@ import {
   o,
   pipe,
   prop,
+  reduce,
   reject,
   tap,
 } from 'ramda'
@@ -21,6 +23,7 @@ import {
 export const PARAGRAPH = '@type/PARAGRAPH'
 export const BOLD = '@type/BOLD'
 export const TEXT = '@type/TEXT'
+export const LINK = '@type/LINK'
 
 /**
  * @type Node
@@ -42,11 +45,24 @@ export const TEXT = '@type/TEXT'
  * }
  */
 
- // createComponent :: String -> Node -> Component
-export const createComponent = type => node => ({
+// mergeNodeAttributes :: Node -> [String] -> Object
+export const mergeNodeAttributes = node => reduce(
+  (obj, attr) => assoc(attr, node.getAttribute(attr), obj),
+  {},
+)
+
+ // createComponent :: (String, [String]) -> Node -> Component
+export const createComponent = (type, attributes = []) => node => ({
   type,
-  children: node.childNodes ? nodeListToComponents(node.childNodes) : [],
-  content: node.wholeText ? node.wholeText : null,
+  children: node.childNodes
+    ? nodeListToComponents(node.childNodes)
+    : []
+  ,
+  content: node.wholeText
+    ? node.wholeText
+    : null
+  ,
+  ...mergeNodeAttributes(node)(attributes),
 })
 
 // isNodeType :: Number -> Node ->  Boolean
@@ -76,6 +92,12 @@ export const isBold = both(
   either(hasTagName('B'), hasTagName('STRONG'))
 )
 
+// isLink :: Node -> Boolean
+export const isLink = both(
+  isElementNode,
+  hasTagName('A'),
+)
+
 // createText :: Node -> Component
 export const createText = createComponent(TEXT)
 
@@ -85,9 +107,13 @@ export const createParagraph = createComponent(PARAGRAPH)
 // createBold :: Node -> Component
 export const createBold = createComponent(BOLD)
 
+// createLink :: Node -> Component
+export const createLink = createComponent(LINK, ['href'])
+
 // nodeToComponent :: Node -> Component
 const nodeToComponent = cond([
   [isBold, createBold],
+  [isLink, createLink],
   [isParagraph, createParagraph],
   [isTextNode, createText],
   [T, always(null)],

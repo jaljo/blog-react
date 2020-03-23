@@ -6,7 +6,24 @@ exports[`Components :: SafeHtml renders a component tree to HTML 1`] = `
     a test text
     another text
   </b>
+  <a
+    href="http://jlanglois.fr"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    a link text child
+  </a>
 </p>
+`;
+
+exports[`Components :: SafeHtml renders a link component 1`] = `
+<a
+  href="test link"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  a link text
+</a>
 `;
 
 exports[`Components :: SafeHtml renders a paragraph component 1`] = `

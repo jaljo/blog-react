@@ -30,6 +30,17 @@ describe('Components :: SafeHtml', () => {
     expect(tree).toMatchSnapshot()
   })
 
+  it('renders a link component', () => {
+    const tree = renderer.create(
+      SafeHtml.Link({
+        href: 'test link',
+        children: [{ type: '@type/TEXT', content: 'a link text' }]
+      })
+    )
+
+    expect(tree).toMatchSnapshot()
+  })
+
   it('identifies a component type', () => {
     const componentMock = { type: 'test' }
 
@@ -53,6 +64,16 @@ describe('Components :: SafeHtml', () => {
               content: 'another text'
             }
           ]
+        },
+        {
+          type: '@type/LINK',
+          children: [
+            {
+              type: '@type/TEXT',
+              content: 'a link text child'
+            },
+          ],
+          href: 'http://jlanglois.fr',
         },
       ]
     }
