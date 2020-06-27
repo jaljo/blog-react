@@ -21,9 +21,11 @@ import {
 
 // supported types
 export const PARAGRAPH = '@type/PARAGRAPH'
+export const ITALIC = '@type/ITALIC'
 export const BOLD = '@type/BOLD'
 export const TEXT = '@type/TEXT'
 export const LINK = '@type/LINK'
+export const BLOCKQUOTE = '@type/BLOCKQUOTE'
 
 /**
  * @type Node
@@ -92,10 +94,22 @@ export const isBold = both(
   either(hasTagName('B'), hasTagName('STRONG'))
 )
 
+// isItalic :: Node -> Boolean
+export const isItalic = both(
+  isElementNode,
+  either(hasTagName('I'), hasTagName('EM'))
+)
+
 // isLink :: Node -> Boolean
 export const isLink = both(
   isElementNode,
   hasTagName('A'),
+)
+
+// isBlockquote :: Node -> Boolean
+export const isBlockquote = both(
+  isElementNode,
+  hasTagName('BLOCKQUOTE'),
 )
 
 // createText :: Node -> Component
@@ -107,15 +121,23 @@ export const createParagraph = createComponent(PARAGRAPH)
 // createBold :: Node -> Component
 export const createBold = createComponent(BOLD)
 
+// createItalic :: Node -> Component
+export const createItalic = createComponent(ITALIC)
+
 // createLink :: Node -> Component
 export const createLink = createComponent(LINK, ['href'])
+
+// createLink :: Node -> Component
+export const createBlockquote = createComponent(BLOCKQUOTE)
 
 // nodeToComponent :: Node -> Component
 const nodeToComponent = cond([
   [isBold, createBold],
+  [isItalic, createItalic],
   [isLink, createLink],
   [isParagraph, createParagraph],
   [isTextNode, createText],
+  [isBlockquote, createBlockquote],
   [T, always(null)],
 ])
 

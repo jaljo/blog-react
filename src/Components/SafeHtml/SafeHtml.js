@@ -8,10 +8,12 @@ import {
   prop,
 } from 'ramda'
 import {
+  BLOCKQUOTE,
   BOLD,
+  ITALIC,
+  LINK,
   PARAGRAPH,
   TEXT,
-  LINK,
 } from './../../HtmlParser/HtmlParser'
 
 // Paragraph :: Component -> React.Component
@@ -26,11 +28,23 @@ export const Bold = ({ children }, idx) =>
     {children.map(renderComponent)}
   </b>
 
+// Italic :: Component -> React.Component
+export const Italic = ({ children }, idx) =>
+  <i key={idx}>
+    {children.map(renderComponent)}
+  </i>
+
 // Link :: Component -> React.Component
-export const Link =({ children, href }, idx) =>
+export const Link = ({ children, href }, idx) =>
   <ExternalLink to={href} key={idx}>
     {children.map(renderComponent)}
   </ExternalLink>
+
+// Blockquote :: Component -> React.Component
+export const Blockquote = ({ children, idx }) =>
+  <blockquote key={idx} >
+    {children.map(renderComponent)}
+  </blockquote>
 
 // Text :: Component -> React.Component
 export const Text = prop('content')
@@ -40,8 +54,10 @@ export const is = type => o(equals(type), prop('type'))
 
 // SafeHtml :: Component -> React.Component
 export default cond([
+  [is(ITALIC), Italic],
   [is(BOLD), Bold],
   [is(LINK), Link],
   [is(PARAGRAPH), Paragraph],
+  [is(BLOCKQUOTE), Blockquote],
   [is(TEXT), Text],
 ])
