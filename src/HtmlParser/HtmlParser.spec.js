@@ -1,25 +1,7 @@
 import * as HtmlParser from './HtmlParser'
-import { link } from 'fs';
+import { T, F } from 'ramda'
 
 describe('HtmlParser :: HtmlParser', () => {
-  it('merge node attributes in an object', () => {
-    const nodeMapNock = {
-      href: 'test',
-      class: 'myclass',
-      id: 'myid',
-    }
-    const nodeMock = {
-      getAttribute: attrName => nodeMapNock[attrName]
-    }
-
-    expect(
-      HtmlParser.mergeNodeAttributes(nodeMock)(['href', 'class'])
-    ).toEqual({
-      class: 'myclass',
-      href: 'test',
-    })
-  })
-
   it('creates a component with the correct type', () => {
     expect(
       HtmlParser.createComponent('@type/TEST')({})
@@ -30,65 +12,12 @@ describe('HtmlParser :: HtmlParser', () => {
     })
   })
 
-  it('identifies a node type', () => {
-    const nodeMock = { nodeType: 12 }
-
-    expect(HtmlParser.isNodeType(12)(nodeMock)).toBeTruthy()
-    expect(HtmlParser.isNodeType(4)(nodeMock)).toBeFalsy()
-  })
-
-  it('identifies an element node', () => {
-    const elementNodeMock = { nodeType: 1 }
-    const notElementNodeMock = { nodeType: 3 }
-
-    expect(HtmlParser.isElementNode(elementNodeMock)).toBeTruthy()
-    expect(HtmlParser.isElementNode(notElementNodeMock)).toBeFalsy()
-  })
-
-  it('determines if a text is empty', () => {
-    expect(HtmlParser.isNotWhiteCharacter('\n')).toBeFalsy()
-    expect(HtmlParser.isNotWhiteCharacter('a')).toBeTruthy()
-  })
-
-  it('identifies a text node', () => {
-    const textNodeMock = { nodeType: 3, wholeText: 'a text' }
-    const emptyTextNodeMock = { nodeType: 3, wholeText: '\n' }
-    const notTextNodeMock = { nodeType: 1 }
-
-    expect(HtmlParser.isTextNode(textNodeMock)).toBeTruthy()
-    expect(HtmlParser.isTextNode(emptyTextNodeMock)).toBeFalsy()
-    expect(HtmlParser.isTextNode(notTextNodeMock)).toBeFalsy()
-  })
-
-  it('identifies a tag name', () => {
-    const nodeMock = { tagName: 'P' }
-
-    expect(HtmlParser.hasTagName('P')(nodeMock)).toBeTruthy()
-    expect(HtmlParser.hasTagName('B')(nodeMock)).toBeFalsy()
-  })
-
   it('identifies a paragraph node', () => {
     const paragraphNodeMock = { nodeType: 1, tagName: 'P' }
     const notParagraphNodeMock = { nodeType: 1, tagName: 'B' }
 
     expect(HtmlParser.isParagraph(paragraphNodeMock)).toBeTruthy()
     expect(HtmlParser.isParagraph(notParagraphNodeMock)).toBeFalsy()
-  })
-
-  it('identifies a bold node', () => {
-    const boldNodeMock = { nodeType: 1, tagName: 'B' }
-    const notBoldNodeMock = { nodeType: 1, tagName: 'P' }
-
-    expect(HtmlParser.isBold(boldNodeMock)).toBeTruthy()
-    expect(HtmlParser.isBold(notBoldNodeMock)).toBeFalsy()
-  })
-
-  it('identifies a link node', () => {
-    const linkNodeMock = { nodeType: 1, tagName: 'A' }
-    const notLinkNodeMock = { nodeType: 1, tagName: 'P' }
-
-    expect(HtmlParser.isLink(linkNodeMock)).toBeTruthy()
-    expect(HtmlParser.isLink(notLinkNodeMock)).toBeFalsy()
   })
 
   it('creates a paragraph component', () => {
@@ -114,6 +43,14 @@ describe('HtmlParser :: HtmlParser', () => {
       ],
       content: null,
     })
+  })
+
+  it('identifies a bold node', () => {
+    const boldNodeMock = { nodeType: 1, tagName: 'B' }
+    const notBoldNodeMock = { nodeType: 1, tagName: 'P' }
+
+    expect(HtmlParser.isBold(boldNodeMock)).toBeTruthy()
+    expect(HtmlParser.isBold(notBoldNodeMock)).toBeFalsy()
   })
 
   it('creates a bold component', () => {
@@ -151,6 +88,14 @@ describe('HtmlParser :: HtmlParser', () => {
     })
   })
 
+  it('identifies a link node', () => {
+    const linkNodeMock = { nodeType: 1, tagName: 'A' }
+    const notLinkNodeMock = { nodeType: 1, tagName: 'P' }
+
+    expect(HtmlParser.isLink(linkNodeMock)).toBeTruthy()
+    expect(HtmlParser.isLink(notLinkNodeMock)).toBeFalsy()
+  })
+
   it('creates a link component', () => {
     const linkMock = {
       nodeType: 1,
@@ -176,6 +121,205 @@ describe('HtmlParser :: HtmlParser', () => {
       ],
       content: null,
       href: 'jlanglois.fr',
+    })
+  })
+
+  it('identifies an italic node', () => {
+    const italicNodeMock = { nodeType: 1, tagName: 'I' }
+    const notItalicNodeMock = { nodeType: 1, tagName: 'P' }
+
+    expect(HtmlParser.isItalic(italicNodeMock)).toBeTruthy()
+    expect(HtmlParser.isItalic(notItalicNodeMock)).toBeFalsy()
+  })
+
+  it('creates an italic component', () => {
+    const italicMock = {
+      nodeType: 1,
+      childNodes: [
+        {
+          nodeType: 3,
+          wholeText: 'an italic text'
+        }
+      ],
+    }
+
+    expect(
+      HtmlParser.createItalic(italicMock)
+    ).toEqual({
+      type: '@type/ITALIC',
+      children: [
+        {
+          type: '@type/TEXT',
+          children: [],
+          content: 'an italic text',
+        }
+      ],
+      content: null,
+    })
+  })
+
+  it('identifies a blockquote node', () => {
+    const blockquoteNodeMock = { nodeType: 1, tagName: 'BLOCKQUOTE' }
+    const notBlockquoteNodeMock = { nodeType: 1, tagName: 'P' }
+
+    expect(HtmlParser.isBlockquote(blockquoteNodeMock)).toBeTruthy()
+    expect(HtmlParser.isBlockquote(notBlockquoteNodeMock)).toBeFalsy()
+  })
+
+  it('creates a blockquote component', () => {
+    const blockquoteMock = {
+      nodeType: 1,
+      childNodes: [
+        {
+          nodeType: 3,
+          wholeText: 'a blockquote text'
+        }
+      ],
+    }
+
+    expect(
+      HtmlParser.createBlockquote(blockquoteMock)
+    ).toEqual({
+      type: '@type/BLOCKQUOTE',
+      children: [
+        {
+          type: '@type/TEXT',
+          children: [],
+          content: 'a blockquote text',
+        }
+      ],
+      content: null,
+    })
+  })
+
+  it('identifies an inline code node', () => {
+    const inlineCodeNodeMock = { nodeType: 1, tagName: 'SPAN', classList: ['code'] }
+    const notInlineCodeNodeMock = { nodeType: 1, tagName: 'SPAN', classList: ['noop'] }
+    const paragraphNodeMock = { nodeType: 1, tagName: 'P' }
+
+    expect(HtmlParser.isInlineCode(inlineCodeNodeMock)).toBeTruthy()
+    expect(HtmlParser.isInlineCode(notInlineCodeNodeMock)).toBeFalsy()
+    expect(HtmlParser.isInlineCode(paragraphNodeMock)).toBeFalsy()
+  })
+
+  it('creates an inline code component', () => {
+    const inlineCodeMock = {
+      nodeType: 1,
+      childNodes: [
+        {
+          nodeType: 3,
+          wholeText: 'an inline piece of code'
+        }
+      ],
+    }
+
+    expect(
+      HtmlParser.createInlineCode(inlineCodeMock)
+    ).toEqual({
+      type: '@type/INLINE_CODE',
+      children: [
+        {
+          type: '@type/TEXT',
+          children: [],
+          content: 'an inline piece of code',
+        }
+      ],
+      content: null,
+    })
+  })
+
+  it('identifies a git gist node', () => {
+    const gistNodeMock = { nodeType: 1, tagName: 'DIV', hasAttribute: T }
+    const notGistNodeMock = { nodeType: 1, tagName: 'DIV', hasAttribute: F }
+    const paragraphNodeMock = { nodeType: 1, tagName: 'P' }
+
+    expect(HtmlParser.isGist(gistNodeMock)).toBeTruthy()
+    expect(HtmlParser.isGist(notGistNodeMock)).toBeFalsy()
+    expect(HtmlParser.isGist(paragraphNodeMock)).toBeFalsy()
+  })
+
+  it('creates a git gist component', () => {
+    const gistMock = {
+      nodeType: 1,
+      getAttribute: () => 'a gist url',
+    }
+
+    expect(
+      HtmlParser.createGist(gistMock)
+    ).toEqual({
+      type: '@type/GIT_GIST',
+      children: [],
+      content: null,
+      'data-src': 'a gist url',
+    })
+  })
+
+  it('identifies a list node', () => {
+    const listNodeMock = { nodeType: 1, tagName: 'UL' }
+    const paragraphNodeMock = { nodeType: 1, tagName: 'P' }
+
+    expect(HtmlParser.isList(listNodeMock)).toBeTruthy()
+    expect(HtmlParser.isList(paragraphNodeMock)).toBeFalsy()
+  })
+
+  it('identifies a list item node', () => {
+    const listItemNodeMock = { nodeType: 1, tagName: 'LI' }
+    const paragraphNodeMock = { nodeType: 1, tagName: 'P' }
+
+    expect(HtmlParser.isListItem(listItemNodeMock)).toBeTruthy()
+    expect(HtmlParser.isListItem(paragraphNodeMock)).toBeFalsy()
+  })
+
+  it('creates a list component with items', () => {
+    const listMock = {
+      nodeType: 1,
+      childNodes: [
+        {
+          nodeType: 1,
+          tagName: 'LI',
+          childNodes: [],
+        }
+      ],
+    }
+
+    expect(
+      HtmlParser.createList(listMock)
+    ).toEqual({
+      type: '@type/LIST',
+      children: [
+        {
+          type: '@type/LIST_ITEM',
+          children: [],
+          content: null,
+        }
+      ],
+      content: null,
+    })
+  })
+
+  it('identifies a figure node', () => {
+    const figureNodeMock = { nodeType: 1, tagName: 'FIGURE' }
+    const paragraphNodeMock = { nodeType: 1, tagName: 'P' }
+
+    expect(HtmlParser.isFigure(figureNodeMock)).toBeTruthy()
+    expect(HtmlParser.isFigure(paragraphNodeMock)).toBeFalsy()
+  })
+
+  it('creates a figure component', () => {
+    const figureMock = {
+      nodeType: 1,
+      querySelector: () => ({
+        getAttribute: () => 'an image source',
+        innerText: 'an image caption',
+      })
+    }
+
+    expect(
+      HtmlParser.createFigure(figureMock)
+    ).toEqual({
+      type: '@type/FIGURE',
+      image: 'an image source',
+      caption: 'an image caption',
     })
   })
 

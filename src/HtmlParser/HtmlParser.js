@@ -1,60 +1,41 @@
 import {
   T,
   __,
+  allPass,
   always,
-  assoc,
   both,
-  complement,
   cond,
   either,
-  equals,
-  includes,
   isNil,
   map,
-  o,
   pipe,
-  prop,
-  reduce,
   reject,
   tap,
 } from 'ramda'
+import {
+  hasClass,
+  hasDataAttribute,
+  hasTagName,
+  isElementNode,
+  isTextNode,
+  mergeNodeAttributes,
+} from './../DomUtils'
 
 // supported types
-export const PARAGRAPH = '@type/PARAGRAPH'
-export const ITALIC = '@type/ITALIC'
-export const BOLD = '@type/BOLD'
-export const TEXT = '@type/TEXT'
-export const LINK = '@type/LINK'
 export const BLOCKQUOTE = '@type/BLOCKQUOTE'
-
-/**
- * @type Node
- *
- * @see https://developer.mozilla.org/fr/docs/Web/API/Node
- */
-
-/**
- * @type Document
- *
- * @see https://developer.mozilla.org/fr/docs/Web/API/Document
- */
-
-/**
- * @type Component = {
- *    type :: String
- *    children: [Component]
- *    content: Maybe String
- * }
- */
-
-// mergeNodeAttributes :: Node -> [String] -> Object
-export const mergeNodeAttributes = node => reduce(
-  (obj, attr) => assoc(attr, node.getAttribute(attr), obj),
-  {},
-)
+export const BOLD = '@type/BOLD'
+export const FIGURE = '@type/FIGURE'
+export const GIT_GIST = '@type/GIT_GIST'
+export const INLINE_CODE = '@type/INLINE_CODE'
+export const ITALIC = '@type/ITALIC'
+export const LINK = '@type/LINK'
+export const LIST = '@type/LIST'
+export const LIST_ITEM = '@type/LIST_ITEM'
+export const PARAGRAPH = '@type/PARAGRAPH'
+export const TEXT = '@type/TEXT'
 
  // createComponent :: (String, [String]) -> Node -> Component
-export const createComponent = (type, attributes = []) => node => ({
+ export const createComponent = (type, attributes = []) => node => ({
   type,
   children: node.childNodes
     ? nodeListToComponents(node.childNodes)
@@ -67,26 +48,14 @@ export const createComponent = (type, attributes = []) => node => ({
   ...mergeNodeAttributes(node)(attributes),
 })
 
-// isNodeType :: Number -> Node ->  Boolean
-export const isNodeType = nodeType => o(equals(nodeType), prop('nodeType'))
-
-// isElementNode :: Node -> Boolean
-export const isElementNode = isNodeType(1)
-
-// isNotWhiteCharacter :: String -> Boolean
-export const isNotWhiteCharacter = complement(includes(__, ['\n']))
-
-// isTextNode :: Node -> Boolean
-export const isTextNode = both(
-  isNodeType(3),
-  o(isNotWhiteCharacter, prop('wholeText')),
-)
-
-// hasTagName :: String -> Node -> Boolean
-export const hasTagName = tagName => o(equals(tagName), prop('tagName'))
+// createText :: Node -> Component
+export const createText = createComponent(TEXT)
 
 // isParagraph :: Node -> Boolean
 export const isParagraph = both(isElementNode, hasTagName('P'))
+
+// createParagraph :: Node -> Component
+export const createParagraph = createComponent(PARAGRAPH)
 
 // isBold :: Node -> Boolean
 export const isBold = both(
@@ -94,11 +63,17 @@ export const isBold = both(
   either(hasTagName('B'), hasTagName('STRONG'))
 )
 
+// createBold :: Node -> Component
+export const createBold = createComponent(BOLD)
+
 // isItalic :: Node -> Boolean
 export const isItalic = both(
   isElementNode,
   either(hasTagName('I'), hasTagName('EM'))
 )
+
+// createItalic :: Node -> Component
+export const createItalic = createComponent(ITALIC)
 
 // isLink :: Node -> Boolean
 export const isLink = both(
@@ -106,38 +81,73 @@ export const isLink = both(
   hasTagName('A'),
 )
 
+// createLink :: Node -> Component
+export const createLink = createComponent(LINK, ['href'])
+
 // isBlockquote :: Node -> Boolean
 export const isBlockquote = both(
   isElementNode,
   hasTagName('BLOCKQUOTE'),
 )
 
-// createText :: Node -> Component
-export const createText = createComponent(TEXT)
-
-// createParagraph :: Node -> Component
-export const createParagraph = createComponent(PARAGRAPH)
-
-// createBold :: Node -> Component
-export const createBold = createComponent(BOLD)
-
-// createItalic :: Node -> Component
-export const createItalic = createComponent(ITALIC)
-
-// createLink :: Node -> Component
-export const createLink = createComponent(LINK, ['href'])
-
 // createLink :: Node -> Component
 export const createBlockquote = createComponent(BLOCKQUOTE)
 
+// isGist :: Node -> Boolean
+export const isGist = allPass([
+  isElementNode,
+  hasTagName('DIV'),
+  hasDataAttribute('src'),
+])
+
+// createGist :: Node -> Component
+export const createGist = createComponent(GIT_GIST, ['data-src'])
+
+// isInlineCode :: Node -> Boolean
+export const isInlineCode = allPass([
+  isElementNode,
+  hasTagName('SPAN'),
+  hasClass('code'),
+])
+
+// createInlineCode :: Node -> Component
+export const createInlineCode = createComponent(INLINE_CODE)
+
+// isList :: Node -> Boolean
+export const isList = both(isElementNode, hasTagName('UL'))
+
+// createList :: Node -> Component
+export const createList = createComponent(LIST)
+
+// isListItem :: Node -> Boolean
+export const isListItem = both(isElementNode, hasTagName('LI'))
+
+// createListItem :: Node -> Component
+export const createListItem = createComponent(LIST_ITEM)
+
+// isFigure :: Node -> Boolean
+export const isFigure = both(isElementNode, hasTagName('FIGURE'))
+
+// createFigure :: Node -> Component
+export const createFigure = node => ({
+  type: FIGURE,
+  image: node.querySelector('img').getAttribute('src'),
+  caption:  node.querySelector('figcaption').innerText,
+})
+
 // nodeToComponent :: Node -> Component
 const nodeToComponent = cond([
+  [isBlockquote, createBlockquote],
   [isBold, createBold],
+  [isFigure, createFigure],
+  [isGist, createGist],
+  [isInlineCode, createInlineCode],
   [isItalic, createItalic],
   [isLink, createLink],
+  [isList, createList],
+  [isListItem, createListItem],
   [isParagraph, createParagraph],
   [isTextNode, createText],
-  [isBlockquote, createBlockquote],
   [T, always(null)],
 ])
 

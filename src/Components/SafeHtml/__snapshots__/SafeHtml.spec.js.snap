@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Components :: SafeHtml renders a blockquote component 1`] = `
+<blockquote>
+  a quoted text
+</blockquote>
+`;
+
 exports[`Components :: SafeHtml renders a component tree to HTML 1`] = `
 <p>
   <b>
@@ -13,7 +19,32 @@ exports[`Components :: SafeHtml renders a component tree to HTML 1`] = `
   >
     a link text child
   </a>
+  <i>
+    an italic text
+  </i>
 </p>
+`;
+
+exports[`Components :: SafeHtml renders a figure component 1`] = `
+<figure
+  data-is="image-with-caption"
+>
+  <img
+    alt=""
+    src="https://www.an-image.com/test.jpg"
+  />
+  <figcaption>
+    this is the caption of the image
+  </figcaption>
+</figure>
+`;
+
+exports[`Components :: SafeHtml renders a gist component 1`] = `
+<iframe
+  data-is="gist"
+  id="86954a679fcaed5e960f687ead25c4aa"
+  title="86954a679fcaed5e960f687ead25c4aa"
+/>
 `;
 
 exports[`Components :: SafeHtml renders a link component 1`] = `
@@ -26,6 +57,32 @@ exports[`Components :: SafeHtml renders a link component 1`] = `
 </a>
 `;
 
+exports[`Components :: SafeHtml renders a list component with items 1`] = `
+<ul>
+  <li>
+    pin one
+  </li>
+  <li>
+    pin two
+  </li>
+  <li>
+    pin three
+  </li>
+</ul>
+`;
+
+exports[`Components :: SafeHtml renders a nested list with formatting components 1`] = `
+<ul>
+  <li>
+    pin one
+    <i>
+      with some italic text
+    </i>
+    in it.
+  </li>
+</ul>
+`;
+
 exports[`Components :: SafeHtml renders a paragraph component 1`] = `
 <p>
   hi there :)
@@ -34,7 +91,21 @@ exports[`Components :: SafeHtml renders a paragraph component 1`] = `
 
 exports[`Components :: SafeHtml renders a text component 1`] = `"a simple text"`;
 
-exports[`Components :: SafeHtml renders bold componet 1`] = `
+exports[`Components :: SafeHtml renders an inline code component 1`] = `
+<span
+  className="code"
+>
+  a piece of code
+</span>
+`;
+
+exports[`Components :: SafeHtml renders an italic component 1`] = `
+<i>
+  an italic text
+</i>
+`;
+
+exports[`Components :: SafeHtml renders bold component 1`] = `
 <b>
   a bold text
 </b>

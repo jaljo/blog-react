@@ -81,14 +81,6 @@ const historyChangedEpic = (action$, state$, { window }) =>
     map(() => findRoute(window.location.pathname)),
   )
 
-/**
- * @type Route = {
- *   name :: String
- *   pattern :: String
- *   parameters :: [String]
- * }
- */
-
 // pathMatchesRoutePattern :: String -> Route
 export const pathMatchesRoutePattern = path => pipe(
   ({ pattern }) => match(new RegExp(pattern), path),

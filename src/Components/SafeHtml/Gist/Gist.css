@@ -1,0 +1,4 @@
+iframe[data-is="gist"] {
+  width: 100%;
+  border: none;
+}
