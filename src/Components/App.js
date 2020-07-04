@@ -32,7 +32,7 @@ export default () =>
               <Error />
             </Router>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 d-flex">
             <SideWidget/>
           </div>
         </div>
