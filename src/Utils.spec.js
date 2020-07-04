@@ -37,7 +37,7 @@ describe('Utils :: Redux', () => {
     })
   })
 
-  it('reduces ana ction with aprameters', () => {
+  it('reduces an action with parameters', () => {
     const s1 = reducer(INITIAL_STATE, { type: FETCH })
     const s2 = reducer(s1, { type: RECEIVED, collection: [1, 2, 3]})
 
@@ -56,5 +56,20 @@ describe('Utils :: Date', () => {
     ).toBe(
       'Sunday, March 8, 2020'
     )
+  })
+})
+
+describe('Utils :: String', () => {
+  it('extracts a gist id from  a full gist url', () => {
+    expect(
+      Utils.extractGistIdFromUrl('https://gist.github.com/jaljo/6a79a307887da60a99e860711f907b0b.js')
+    ).toBe(
+      '6a79a307887da60a99e860711f907b0b'
+    )
+  })
+
+  it('determines if a text is empty', () => {
+    expect(Utils.isNotWhiteCharacter('\n')).toBeFalsy()
+    expect(Utils.isNotWhiteCharacter('a')).toBeTruthy()
   })
 })

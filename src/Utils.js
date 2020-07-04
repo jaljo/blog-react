@@ -1,9 +1,13 @@
 import {
+  __,
+  complement,
   has,
+  includes,
+  match,
+  o,
   pipe,
+  prop,
 } from 'ramda'
-import { StateObservable } from 'redux-observable'
-import { Subject } from 'rxjs'
 
 /**
  * Redux utilities
@@ -31,9 +35,11 @@ export const toEnglishDate = pipe(
 )
 
 /**
- * Test utils
+ * String utilities
  */
 
-// createObservabelState :: Object -> Observable State
-export const createObservableState = state =>
-  new StateObservable(new Subject(), state)
+// extractGistIdFromUrl :: String -> String
+export const extractGistIdFromUrl = o(prop(1), match(/(\w{32})\.js$/))
+
+// isNotWhiteharacter :: String -> Boolean
+export const isNotWhiteCharacter = complement(includes(__, ['\n']))

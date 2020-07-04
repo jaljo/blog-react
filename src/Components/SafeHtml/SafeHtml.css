@@ -1,0 +1,40 @@
+span.code {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  color: #e01e5a;
+  font-size: 0.9rem;
+  padding: 2px 3px;
+}
+
+blockquote {
+  margin: 2.5rem 0;
+  font-size: 1.5rem;
+  font-style: italic;
+  padding-left: 1rem;
+  border-left: 3px solid #ddd;
+  border-radius: 3px;
+}
+
+ul {
+  list-style: square;
+}
+
+figure[data-is="image-with-caption"] {
+  margin: 2.5rem 0;
+}
+
+figure[data-is="image-with-caption"] img {
+  display: block;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+figure[data-is="image-with-caption"] figcaption {
+  font-size: 1rem;
+  font-style: italic;
+  text-align: center;
+  width: 70%;
+  margin: auto;
+}

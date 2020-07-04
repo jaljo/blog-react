@@ -14,6 +14,7 @@ const logger = store => next => pipe(
 
 const epicMiddleware = createEpicMiddleware({
   dependencies: {
+    document: document,
     fetchApi: createFetchApi(fetch, process.env.REACT_APP_API),
     parseHtml: createParser(document),
     window: window,

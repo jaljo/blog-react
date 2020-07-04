@@ -1,17 +1,6 @@
 import { createReducer } from './../../Utils'
 
-/**
- * @type Article = {
- *   id :: Number
- *   title :: String
- *   slug :: String
- *   content :: String
- *   dateCreation :: String
- *   draft :: Number
- * }
- */
-
- // initial state
+// initial state
 export const INITIAL_STATE = {
   article: {},
   isLoading: false,

@@ -2,7 +2,7 @@ import * as epic from './articleDetails'
 import * as articleDetails from './../Redux/State/articleDetails'
 import { ActionsObservable } from 'redux-observable'
 import { identity } from 'ramda'
-import { createObservableState } from './../Utils'
+import { createObservableState } from './../TestUtils'
 
 describe('Epics :: articleDetails :: loadOneArticleEpic', () => {
   it('dispatches ONE_LOADED action on fetch succeed', done => {

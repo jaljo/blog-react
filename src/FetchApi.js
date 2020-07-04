@@ -2,4 +2,3 @@
 export default (fetcher, baseUrl) => (path, options = {}) =>
   fetcher(`${baseUrl}${path}`, options)
     .then(response => response.json())
-

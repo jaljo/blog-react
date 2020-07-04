@@ -1,7 +1,7 @@
 import * as epic from './router'
 import * as router from './../Redux/State/router'
 import { ActionsObservable } from 'redux-observable'
-import { createObservableState } from './../Utils'
+import { createObservableState } from './../TestUtils'
 
 describe('Epics :: router :: routerValid', () => {
   it('determines if a route is valid', () => {
