@@ -10,7 +10,7 @@ export default () =>
         <h5 className="card-header">About me</h5>
         <div className="card-body">
           <p>
-            I'm a french developper interested in coding cool stuff,
+            I'm a french developer interested in coding cool stuff,
             mathematics and eating tons of cheese.<br/>
           </p>
           <p>
