@@ -6,9 +6,21 @@
   color: #837474;
 }
 
+[data-is="side-widget"] ul {
+  padding: 0;
+  padding-left: 16px;
+}
+
 @media (min-width: 768px) {
-  [data-is="side-widget"] {
-    position: fixed;
-    width: 210px;
+  [data-is="side-widget"] .sticky-container {
+    position: sticky;
+    top: 90px;
+  }
+}
+
+@media (min-width: 992px) {
+  [data-is="side-widget"] .sticky-container {
+    position: sticky;
+    top: 125px;
   }
 }
