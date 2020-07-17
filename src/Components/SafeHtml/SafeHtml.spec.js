@@ -119,6 +119,16 @@ describe('Components :: SafeHtml', () => {
     expect(tree).toMatchSnapshot()
   })
 
+  it('renders a title component', () => {
+    const tree = renderer.create(
+      SafeHtml.Title({
+        children: [{ type: '@type/TEXT', content: 'a title' }]
+      })
+    )
+
+    expect(tree).toMatchSnapshot()
+  })
+
   it('identifies a component type', () => {
     const componentMock = { type: 'test' }
 
