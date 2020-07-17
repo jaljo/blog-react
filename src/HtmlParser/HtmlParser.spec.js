@@ -323,6 +323,40 @@ describe('HtmlParser :: HtmlParser', () => {
     })
   })
 
+  it('identifies a title node', () => {
+    const titleNodeMock = { nodeType: 1, tagName: 'H2' }
+    const paragraphNodeMock = { nodeType: 1, tagName: 'P' }
+
+    expect(HtmlParser.isTitle(titleNodeMock)).toBeTruthy()
+    expect(HtmlParser.isTitle(paragraphNodeMock)).toBeFalsy()
+  })
+
+  it('creates a title component', () => {
+    const titleMock = {
+      nodeType: 1,
+      childNodes: [
+        {
+          nodeType: 3,
+          wholeText: 'My title'
+        }
+      ],
+    }
+
+    expect(
+      HtmlParser.createTitle(titleMock)
+    ).toEqual({
+      type: '@type/TITLE',
+      children: [
+        {
+          type: '@type/TEXT',
+          children: [],
+          content: 'My title',
+        }
+      ],
+      content: null,
+    })
+  })
+
   it('parses a complete HTML tree and creates corrects components', () => {
     const documentMock = {
       createElement: () => ({

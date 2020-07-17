@@ -33,6 +33,7 @@ export const LIST = '@type/LIST'
 export const LIST_ITEM = '@type/LIST_ITEM'
 export const PARAGRAPH = '@type/PARAGRAPH'
 export const TEXT = '@type/TEXT'
+export const TITLE = '@type/TITLE'
 
  // createComponent :: (String, [String]) -> Node -> Component
  export const createComponent = (type, attributes = []) => node => ({
@@ -135,6 +136,12 @@ export const createFigure = node => ({
   caption:  node.querySelector('figcaption').innerText,
 })
 
+// isTitle :: Node -> Boolean
+export const isTitle = both(isElementNode, hasTagName('H2'))
+
+// createTitle :: Node -> Component
+export const createTitle = createComponent(TITLE)
+
 // nodeToComponent :: Node -> Component
 const nodeToComponent = cond([
   [isBlockquote, createBlockquote],
@@ -148,6 +155,7 @@ const nodeToComponent = cond([
   [isListItem, createListItem],
   [isParagraph, createParagraph],
   [isTextNode, createText],
+  [isTitle, createTitle],
   [T, always(null)],
 ])
 

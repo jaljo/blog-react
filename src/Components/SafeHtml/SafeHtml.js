@@ -11,6 +11,7 @@ import {
 import {
   BLOCKQUOTE,
   BOLD,
+  FIGURE,
   GIT_GIST,
   INLINE_CODE,
   ITALIC,
@@ -19,7 +20,7 @@ import {
   LIST_ITEM,
   PARAGRAPH,
   TEXT,
-  FIGURE,
+  TITLE,
 } from './../../HtmlParser/HtmlParser'
 import './SafeHtml.css'
 
@@ -90,6 +91,12 @@ export const Figure = ({ image, caption }, key) =>
     </figcaption>
   </figure>
 
+// Title :: Component -> React.Component
+export const Title = ({ children }, key) =>
+  <h2 data-is="title" key={key}>
+    {children.map(renderComponent)}
+  </h2>
+
 // is :: String -> Component -> Boolean
 export const is = type => o(equals(type), prop('type'))
 
@@ -106,4 +113,5 @@ export default cond([
   [is(LIST_ITEM), ListItem],
   [is(PARAGRAPH), Paragraph],
   [is(TEXT), Text],
+  [is(TITLE), Title],
 ])
