@@ -19,6 +19,7 @@ blockquote {
 
 ul {
   list-style: square;
+  padding-left: 1.5rem;
 }
 
 figure[data-is="image-with-caption"] {
@@ -27,7 +28,6 @@ figure[data-is="image-with-caption"] {
 
 figure[data-is="image-with-caption"] img {
   display: block;
-  margin-bottom: 1rem;
   margin: auto;
   max-width: 100%;
 }
@@ -38,14 +38,25 @@ figure[data-is="image-with-caption"] figcaption {
   text-align: center;
   width: 70%;
   margin: auto;
+  margin-top: 1rem;
 }
 
 @media (max-width: 576px) {
-  p {
+  p,
+  ul li {
     font-size: 1rem;
+  }
+
+  span.code {
+    font-size: 0.8rem;
   }
 
   blockquote {
     font-size: 1.25rem;
+    margin: 1rem 0;
+  }
+
+  figure[data-is="image-with-caption"] {
+    margin: 1rem 0;
   }
 }
