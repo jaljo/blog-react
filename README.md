@@ -3,18 +3,22 @@
 This is the frontend application of my personal blog.
 
 ## What's inside ?
-- [react](https://reactjs.org/)
-- [redux](https://redux.js.org/)
-- [rxjs](https://rxjs-dev.firebaseapp.com/)
-- [redux-observable](https://redux-observable.js.org/)
-- [ramda](https://ramdajs.com)
-- [jest](https://jestjs.io/)
+
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [RxJs](https://rxjs-dev.firebaseapp.com/)
+- [Redux-Observable](https://redux-observable.js.org/)
+- [Ramda](https://ramdajs.com)
+- [Jest](https://jestjs.io/)
 
 ## Installation
 
-This application is intended to run through a docker container.
-`docker-compose up --build`
+First, copy the env file and build docker images :
+`$ make cp-env build install-deps`
+
+Then you can strt the application:
+`$ make start`
 
 ## Runing tests
 
-`docker-compose exec app yarn test`
+`$ make test`
