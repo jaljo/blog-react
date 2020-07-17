@@ -91,6 +91,14 @@ exports[`Components :: SafeHtml renders a paragraph component 1`] = `
 
 exports[`Components :: SafeHtml renders a text component 1`] = `"a simple text"`;
 
+exports[`Components :: SafeHtml renders a title component 1`] = `
+<h2
+  data-is="title"
+>
+  a title
+</h2>
+`;
+
 exports[`Components :: SafeHtml renders an inline code component 1`] = `
 <span
   className="code"
