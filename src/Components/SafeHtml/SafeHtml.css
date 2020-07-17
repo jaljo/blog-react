@@ -27,8 +27,9 @@ figure[data-is="image-with-caption"] {
 
 figure[data-is="image-with-caption"] img {
   display: block;
-  margin: auto;
   margin-bottom: 1rem;
+  margin: auto;
+  max-width: 100%;
 }
 
 figure[data-is="image-with-caption"] figcaption {
@@ -37,4 +38,14 @@ figure[data-is="image-with-caption"] figcaption {
   text-align: center;
   width: 70%;
   margin: auto;
+}
+
+@media (max-width: 576px) {
+  p {
+    font-size: 1rem;
+  }
+
+  blockquote {
+    font-size: 1.25rem;
+  }
 }
